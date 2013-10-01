@@ -1,4 +1,5 @@
 package window.panels;
+import javax.swing.Action;
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -15,7 +16,9 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
 
 
 public class SettingsPanel extends JPanel {
@@ -67,7 +70,7 @@ public class SettingsPanel extends JPanel {
 		}
 	}
 	
-	public int getFactoriNumber() {
+	public int getFactoriesNumber() {
 		try {
 			int factories = Integer.parseInt(factoryTextField.getText());
 			return factories;

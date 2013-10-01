@@ -8,11 +8,12 @@ public class FactoryRowHeader extends AbstractRowHeader {
 	}
 
 	public Object getElementAt(int in) {
-		if(in == 0)
-			return new String("Потребители");
-		else if(in == 1)
-			return new String("Потребность в товаре");
-		else 
-			return null;
+//		if(in == 0)
+//			return new String("Потребители");
+//		else if(in == 1)
+//			return new String("Потребность в товаре");
+//		else 
+//			return null;
+		return new String("Потребность в товаре");
 	}
 }

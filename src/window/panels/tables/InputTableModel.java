@@ -1,19 +1,18 @@
 package window.panels.tables;
 
-
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
-public class CostInputTableModel implements TableModel {
+public class InputTableModel implements TableModel {
 
-	public CostInputTableModel(int mines, int factories) {
-		rowCount = mines;
-		columnCount = factories;
+	public InputTableModel(int mines, int factories) {
+		this.rowCount = mines;
+		this.columnCount = factories;
 		
-		data = new Object[mines][factories];
+		this.data = new Object[mines][factories];
 	}
 	
 	public void addTableModelListener(TableModelListener l) {
@@ -21,7 +20,7 @@ public class CostInputTableModel implements TableModel {
 	}
 
 	public Class<?> getColumnClass(int columnIndex) {
-		return String.class;			
+		return Integer.class;			
 	}
 
 	public int getColumnCount() {
@@ -42,7 +41,7 @@ public class CostInputTableModel implements TableModel {
 	}
 
 	public boolean isCellEditable(int row, int column) {
-		return true;
+		return this.editable;
 	}
 
 	public void removeTableModelListener(TableModelListener l) {
@@ -52,9 +51,18 @@ public class CostInputTableModel implements TableModel {
 	public void setValueAt(Object aValue, int row, int column) {
 		data[row][column] = aValue;
 	}
+	
+	public boolean isEditable() {
+		return editable;
+	}
+	
+	public void setEditable(boolean editable) {
+		this.editable = editable;
+	}
 
 	private int rowCount;
 	private int columnCount;
+	private boolean editable;
 	private Set<TableModelListener> listeners = new HashSet<TableModelListener>();
 	private Object[][] data;
 }

@@ -23,7 +23,6 @@ import java.awt.GridLayout;
 
 import javax.swing.JLabel;
 
-import start.Const;
 import window.panels.tables.InputTableModel;
 import window.panels.tables.CostRowHeader;
 import window.panels.tables.FactoryRowHeader;
@@ -42,8 +41,8 @@ public class TablesPanel extends JPanel {
 	
 	public TablesPanel(int mines, int factories) {		
 		// For debug
-//		mines = 4;
-//		factories = 8;
+		mines = 4;
+		factories = 8;
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		setLayout(gridBagLayout);
@@ -70,9 +69,15 @@ public class TablesPanel extends JPanel {
 		mineTable.setBackground(SystemColor.textHighlightText);
 		mineScroll.setViewportView(mineTable);
 		mineTable.setModel(new MineTableModel(mines));
+		for(int i = 0; i < mineTable.getColumnCount(); ++i) {
+			TableColumn column = mineTable.getColumnModel().getColumn(i);
+			column.setMinWidth(30);
+			column.setPreferredWidth(50);
+			column.setMaxWidth(50);
+		}
 		mineTable.setCellSelectionEnabled(true);	
 		mineTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		ListModel mineListModel = new MineRowHeader(1);
+		ListModel mineListModel = new MineRowHeader(2);
 	    JList mineHeader = new JList(mineListModel);
 	    mineHeader.setBackground(SystemColor.control);
 	    mineHeader.setFixedCellWidth(150);
@@ -102,8 +107,14 @@ public class TablesPanel extends JPanel {
 		factoryScroll.setViewportView(factoryTable);
 		factoryTable.setModel(new FactoryTableModel(factories));
 		factoryTable.setCellSelectionEnabled(true);	
-//		factoryTable.getTableHeader().setVisible(false);		
-		ListModel factoryListModel = new FactoryRowHeader(1);
+		for(int i = 0; i < factoryTable.getColumnCount(); ++i) {
+			TableColumn column = factoryTable.getColumnModel().getColumn(i);
+			column.setMinWidth(30);
+			column.setPreferredWidth(50);
+			column.setMaxWidth(50);
+		}
+		factoryTable.getTableHeader().setVisible(false);		
+		ListModel factoryListModel = new FactoryRowHeader(2);
 	    JList factoryHeader = new JList(factoryListModel);
 	    factoryHeader.setBackground(SystemColor.control);
 	    factoryHeader.setFixedCellWidth(150);
@@ -133,9 +144,7 @@ public class TablesPanel extends JPanel {
 		costTable = new JTable();
 		costTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		costScroll.setViewportView(costTable);
-		InputTableModel costModel = new InputTableModel(mines, factories);
-		costModel.setEditable(true);
-		costTable.setModel(costModel);
+		costTable.setModel(new InputTableModel(mines, factories));
 		ListModel costListModel = new CostRowHeader(mines);
 	    JList costHeader = new JList(costListModel);
 	    costHeader.setBackground(SystemColor.control);
@@ -143,6 +152,10 @@ public class TablesPanel extends JPanel {
 	    costHeader.setFixedCellHeight(costTable.getRowHeight() + costTable.getRowMargin() - 1);
 	    costHeader.setCellRenderer(new RowHeaderRenderer(costTable));
 	    costScroll.setRowHeaderView(costHeader);
+		for(int i = 0; i < costTable.getColumnCount(); ++i) {
+			TableColumn column = costTable.getColumnModel().getColumn(i);
+			column.setPreferredWidth(110);
+		}
 	    
 		gridBagLayout.columnWidths = new int[] {605};
 		gridBagLayout.rowHeights = new int[] {20, 80, 20, 80, 20, 150, 30};
@@ -155,43 +168,16 @@ public class TablesPanel extends JPanel {
 		tablesOkButton.gridx = 0;
 		tablesOkButton.gridy = 6;
 		add(okButton, tablesOkButton);
-
-		for(int i = 0; i < mineTable.getColumnCount(); ++i) {
-			TableColumn column = mineTable.getColumnModel().getColumn(i);
-			column.setMinWidth(30);
-			column.setPreferredWidth(50);
-			column.setMaxWidth(50);
-		}
-
-		for(int i = 0; i < factoryTable.getColumnCount(); ++i) {
-			TableColumn column = factoryTable.getColumnModel().getColumn(i);
-			column.setMinWidth(30);
-			column.setPreferredWidth(50);
-			column.setMaxWidth(50);
-		}
-		
-		for(int i = 0; i < costTable.getColumnCount(); ++i) {
-			TableColumn column = costTable.getColumnModel().getColumn(i);
-			column.setMinWidth(100);
-			column.setPreferredWidth(110);
-			column.setMaxWidth(120);
-		}
-		
-		mineScroll.setPreferredSize(new Dimension(Const.MAX_FRAME_SIZE.width, (mineTable.getRowCount() + 0) * mineHeader.getFixedCellHeight()));
-		mineScroll.setMaximumSize(mineScroll.getPreferredSize());
-		mineScroll.setMinimumSize(mineScroll.getPreferredSize());
-		mineScroll.setSize(mineScroll.getPreferredSize());
 	}
 	
-//	public void resetWidth(int width) {
-//		((GridBagLayout) this.getLayout()).columnWidths = new int[] { width };
-//	}
+	public void resetWidth(int width) {
+		((GridBagLayout) this.getLayout()).columnWidths = new int[] { width };
+	}
 	
 	public int[] getMineArray() {
 		int[] result = new int[mineTable.getColumnCount()];
 		for(int i = 0; i < mineTable.getColumnCount(); ++i) {
-			result[i] = (Integer) mineTable.getValueAt(0, i);
-//			Integer.parseInt((String) 
+			result[i] = Integer.parseInt((String) mineTable.getValueAt(1, i));
 		}
 		
 		return result;
@@ -200,7 +186,7 @@ public class TablesPanel extends JPanel {
 	public int[] getFactoryArray() {
 		int[] result = new int[factoryTable.getColumnCount()];
 		for(int i = 0; i < factoryTable.getColumnCount(); ++i) {
-			result[i] = (Integer) factoryTable.getValueAt(0, i);
+			result[i] = Integer.parseInt((String) factoryTable.getValueAt(1, i));
 		}
 		
 		return result;
@@ -211,7 +197,7 @@ public class TablesPanel extends JPanel {
 		
 		for(int i = 0; i < costTable.getRowCount(); ++i) {
 			for(int j = 0; j < costTable.getColumnCount(); ++j) {
-				result[i][j] = (Integer) costTable.getValueAt(i, j);
+				result[i][j] = Integer.parseInt((String) costTable.getValueAt(i, j));
 			}
 		}
 		

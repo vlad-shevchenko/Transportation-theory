@@ -10,12 +10,12 @@ import javax.swing.table.TableModel;
 public abstract class AbstractOreTableModel implements TableModel {
 	
 	public AbstractOreTableModel(int values) {
-		this.data = new Object[2][values];
+		this.data = new Object[1][values];
 		columnCount = values;
 		
-		for(int i = 0; i < values; ++i) {
-			data[0][i] = new String("¹ " + (i + 1));
-		}
+//		for(int i = 0; i < values; ++i) {
+//			data[0][i] = new String("¹ " + (i + 1));
+//		}
 	}
 
 	public void addTableModelListener(TableModelListener arg0) {
@@ -23,7 +23,7 @@ public abstract class AbstractOreTableModel implements TableModel {
 	}
 
 	public Class<?> getColumnClass(int arg0) {
-		return String.class;	
+		return Integer.class;	
 	}
 
 	public int getColumnCount() {
@@ -31,7 +31,7 @@ public abstract class AbstractOreTableModel implements TableModel {
 	}
 	
 	public String getColumnName(int index) {
-		return null;
+		return new String("¹ " + (index + 1));
 	}
 
 	public int getRowCount() {
@@ -43,7 +43,7 @@ public abstract class AbstractOreTableModel implements TableModel {
 	}
 
 	public boolean isCellEditable(int arg0, int arg1) {
-		return (arg0 == 0) ? false : true;
+		return true;
 	}
 
 	public void removeTableModelListener(TableModelListener arg0) {
