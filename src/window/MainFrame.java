@@ -57,11 +57,18 @@ public class MainFrame extends JFrame implements ActionListener {
 			Solver solver = new Solver(data);
 			
 			solutionPanel = new SolutionPanel(settingsPanel.getMineNumber(), settingsPanel.getFactoriesNumber());
+			solutionPanel.setTableData(solver.solve());
+			solutionPanel.setSaveAction(this);
+			solutionPanel.setExitAction(this);
 			this.add(solutionPanel);
 					
 			this.setSize(Const.DEFAULT_FRAME_SIZE);
 			this.revalidate();
 			this.repaint();
+		} else if ( ((JButton) ev.getSource()).getText().equals("Сохранить") ) {
+			
+		} else if ( ((JButton) ev.getSource()).getText().equals("Выход") ) {
+			System.exit(0);
 		}
 	}
 	

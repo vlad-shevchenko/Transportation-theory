@@ -41,7 +41,7 @@ public class SolutionPanel extends JPanel {
 //		factories = 9; 
 		
 		this.setBounds(0, 0, Const.DEFAULT_FRAME_SIZE.width, 300);
-		ListModel costListModel = new CostRowHeader(mines);
+		ListModel listModel = new CostRowHeader(mines);
 	    GridBagConstraints gbc_costScroll = new GridBagConstraints();
 	    gbc_costScroll.anchor = GridBagConstraints.NORTHWEST;
 	    gbc_costScroll.fill = GridBagConstraints.BOTH;
@@ -78,12 +78,12 @@ public class SolutionPanel extends JPanel {
 	    solutionTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 	    solutionScroll.setViewportView(solutionTable);
 	    solutionTable.setModel(model);
-	    JList costHeader = new JList(costListModel);
-	    costHeader.setBackground(SystemColor.control);
-	    costHeader.setFixedCellWidth(150);
-	    costHeader.setFixedCellHeight(solutionTable.getRowHeight() + solutionTable.getRowMargin() - 1);
-	    costHeader.setCellRenderer(new RowHeaderRenderer(solutionTable));
-	    solutionScroll.setRowHeaderView(costHeader);
+	    JList rowHeader = new JList(listModel);
+	    rowHeader.setBackground(SystemColor.control);
+	    rowHeader.setFixedCellWidth(150);
+	    rowHeader.setFixedCellHeight(solutionTable.getRowHeight() + solutionTable.getRowMargin() - 1);
+	    rowHeader.setCellRenderer(new RowHeaderRenderer(solutionTable));
+	    solutionScroll.setRowHeaderView(rowHeader);
 	    
 	    JPanel panel = new JPanel();
 	    panel.setPreferredSize(new Dimension(0, 0));
@@ -123,6 +123,14 @@ public class SolutionPanel extends JPanel {
 	    panel.setMinimumSize(panel.getPreferredSize());
 	    panel.setSize(panel.getPreferredSize());
 	    panel.setMaximumSize(panel.getPreferredSize());
+	}
+	
+	public void setTableData(int[][] data) {
+		for(int i = 0; i < data.length; ++i) {
+			for(int j = 0; j < data[0].length; ++j) {
+				this.solutionTable.setValueAt(data[i][j], i, j);
+			}
+		}
 	}
 	
 	public void setSaveAction(ActionListener l) {
