@@ -149,18 +149,21 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 				}
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(this,
-						"Ошибка при записи файла. Попробуйте выбрать другой файл", "Ошибка", ERROR);
+						"Ошибка при записи файла. Попробуйте выбрать другой файл", "Ошибка", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
 			
 			this.saved = true;
+			break;
 		}
-		case JFileChooser.CANCEL_OPTION : {
+		case JFileChooser.CANCEL_OPTION : {				
+			JOptionPane.showMessageDialog(this,
+				"Отмена", "Отмена", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		case JFileChooser.ERROR_OPTION : {
 			JOptionPane.showMessageDialog(this,
-					"Ошибка при выборе файла. Результаты не были сохранены", "Ошибка", ERROR);
+					"Ошибка при выборе файла. Результаты не были сохранены", "Ошибка", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		}
@@ -209,7 +212,7 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 		
 		public void addItem(long time, String event) {
 			this.log.add("[" + 
-							TimeUnit.MILLISECONDS.toHours(time) % 24 + ":" + 
+							(TimeUnit.MILLISECONDS.toHours(time) % 24 + 3) + ":" + 
 							TimeUnit.MILLISECONDS.toMinutes(time) % 60 + ":" + 
 							TimeUnit.MILLISECONDS.toSeconds(time) % 60 + 
 						 "] - " +
@@ -231,8 +234,10 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 		}
 		
 		public String nextLine() {
-			if(returnedLine == log.size())
+			if(returnedLine == log.size()) {
+				returnedLine = 0;
 				return null;
+			}
 			else
 				return log.get(returnedLine++);
 		}

@@ -21,36 +21,39 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
+import javax.swing.SwingConstants;
 
 
 public class SettingsPanel extends JPanel {
 	public SettingsPanel() {
-		setLayout(new GridLayout(3, 1, 0, 10));
 		
 		JPanel mineInputPanel = new JPanel();
 		JPanel factoryInputPanel = new JPanel();
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		add(mineInputPanel);
 		mineInputPanel.setLayout(new BorderLayout(0, 0));
 		
+		// "Количество производителей"
 		mineLabel = new JLabel("\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u0435\u0439:");
-		mineInputPanel.add(mineLabel, BorderLayout.WEST);
+		mineInputPanel.add(mineLabel);
 		
 		mineTextField = new JTextField();
 		mineTextField.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		mineTextField.setColumns(5);
 		mineInputPanel.add(mineTextField, BorderLayout.EAST);
-		mineTextField.setColumns(3);
 		
 		add(factoryInputPanel);
 		factoryInputPanel.setLayout(new BorderLayout(0, 0));
-		
+
+		// "Количество потребителей"
 		factoryLabel = new JLabel("\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u0435\u0439:");
 		factoryInputPanel.add(factoryLabel, BorderLayout.WEST);
 		
 		factoryTextField = new JTextField();
 		factoryTextField.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		factoryInputPanel.add(factoryTextField, BorderLayout.EAST);
-		factoryTextField.setColumns(3);
+		factoryTextField.setColumns(5);
 		
 		JPanel okPanel = new JPanel();
 		add(okPanel);
@@ -81,6 +84,11 @@ public class SettingsPanel extends JPanel {
 		}
 	}
 	
+	/**
+	 * Check data in tables and returns error code. 
+	 * All codes - "public static int" fields of Const.java
+	 * @return error code
+	 */
 	public int checkData() {
 		if(mineTextField.getText().equals("") || factoryTextField.getText().equals(""))
 			return Const.NOT_ENOGHT_DATA;
@@ -101,9 +109,9 @@ public class SettingsPanel extends JPanel {
 		else return Const.NO_ERRORS;
 	}
 	
-	public JTextField mineTextField;
 	private JTextField factoryTextField;
 	private JLabel mineLabel;
 	private JLabel factoryLabel;
 	private JButton okButton;
+	private JTextField mineTextField;
 }

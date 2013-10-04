@@ -33,11 +33,7 @@ import javax.swing.Box;
 import java.awt.ComponentOrientation;
 
 public class SolutionPanel extends JPanel {
-	public SolutionPanel(int mines, int factories) {
-		// For debug
-//		mines = 6;
-//		factories = 9; 
-		
+	public SolutionPanel(int mines, int factories) {		
 		this.setBounds(0, 0, Const.DEFAULT_FRAME_SIZE.width, 300);
 		ListModel listModel = new CostRowHeader(mines);
 	    GridBagConstraints gbc_costScroll = new GridBagConstraints();
@@ -110,7 +106,7 @@ public class SolutionPanel extends JPanel {
 			column.setMaxWidth(120);
 		}
 		
-	    solutionScroll.setPreferredSize(new Dimension(Const.MAX_FRAME_SIZE.width, 230));
+	    solutionScroll.setPreferredSize(new Dimension(Integer.MAX_VALUE, 230));
 	    solutionScroll.setMaximumSize(solutionScroll.getPreferredSize());
 	    solutionScroll.setMinimumSize(solutionScroll.getPreferredSize());
 	    solutionScroll.setSize(solutionScroll.getPreferredSize());
