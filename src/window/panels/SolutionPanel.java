@@ -13,9 +13,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.table.TableColumn;
 
 import start.Const;
-import window.panels.tables.InputTableModel;
-import window.panels.tables.CostRowHeader;
-import window.panels.tables.RowHeaderRenderer;
+import window.panels.tables.*;
 
 import java.awt.GridBagLayout;
 import java.awt.FlowLayout;
@@ -53,7 +51,7 @@ public class SolutionPanel extends JPanel {
 	    gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 	    gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0};
 	    setLayout(gridBagLayout);
-	    InputTableModel model = new InputTableModel(mines, factories);
+	    MatrixTableModel model = new MatrixTableModel(mines, factories);
 	    model.setEditable(false);
 	    
 	    JLabel label = new JLabel("\u041C\u0430\u0442\u0440\u0438\u0446\u0430 \u043F\u0435\u0440\u0435\u0432\u043E\u0437\u043E\u043A");

@@ -15,6 +15,8 @@ import java.awt.GridLayout;
 
 import javax.swing.JButton;
 
+import start.Const;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -79,7 +81,27 @@ public class SettingsPanel extends JPanel {
 		}
 	}
 	
-	private JTextField mineTextField;
+	public int checkData() {
+		if(mineTextField.getText().equals("") || factoryTextField.getText().equals(""))
+			return Const.NOT_ENOGHT_DATA;
+		int mines;
+		int factories;
+		try {
+			mines = Integer.parseInt(mineTextField.getText());
+			factories = Integer.parseInt(factoryTextField.getText());
+		} catch (NumberFormatException e) {
+			return Const.INCORRECT_DATA;
+		}
+		if(mines < 0 || factories < 0)
+			return Const.INCORRECT_DATA;
+		else if(mines == 0 || factories == 0)
+			return Const.NOT_ENOGHT_DATA;
+		else if(mines == 1 || factories == 1)
+			return Const.INCORRECT_SETTINGS;
+		else return Const.NO_ERRORS;
+	}
+	
+	public JTextField mineTextField;
 	private JTextField factoryTextField;
 	private JLabel mineLabel;
 	private JLabel factoryLabel;

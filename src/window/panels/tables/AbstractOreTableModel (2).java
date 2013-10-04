@@ -10,15 +10,15 @@ import javax.swing.table.TableModel;
 public abstract class AbstractOreTableModel implements TableModel {
 	
 	public AbstractOreTableModel(int values) {
-		this.data = new Object[1][values];
+		this.data = new int[1][values];
 		columnCount = values;
 	}
 
-	public void addTableModelListener(TableModelListener l) {
-		this.listeners.add(l);
+	public void addTableModelListener(TableModelListener arg0) {
+		this.listeners.add(arg0);
 	}
 
-	public Class<?> getColumnClass(int i) {
+	public Class<?> getColumnClass(int arg0) {
 		return Integer.class;	
 	}
 
@@ -34,24 +34,24 @@ public abstract class AbstractOreTableModel implements TableModel {
 		return data.length;			
 	}
 
-	public Object getValueAt(int row, int column) {
-		return data[row][column];
+	public Object getValueAt(int arg0, int arg1) {
+		return data[arg0][arg1];
 	}
 
-	public boolean isCellEditable(int row, int column) {
+	public boolean isCellEditable(int arg0, int arg1) {
 		return true;
 	}
 
-	public void removeTableModelListener(TableModelListener l) {
-		this.listeners.remove(l);
+	public void removeTableModelListener(TableModelListener arg0) {
+		this.listeners.remove(arg0);
 	}
 
-	public void setValueAt(Object value, int row, int column) {
-		data[row][column] = value;
+	public void setValueAt(Object arg0, int arg1, int arg2) {
+		data[arg1][arg2] = (int) arg0;
 	}
 	
 	protected int rowCount;
 	protected int columnCount;
 	protected Set<TableModelListener> listeners = new HashSet<TableModelListener>();
-	protected Object[][] data;
+	protected int[][] data;
 }

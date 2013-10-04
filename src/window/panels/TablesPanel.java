@@ -24,13 +24,7 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 
 import start.Const;
-import window.panels.tables.InputTableModel;
-import window.panels.tables.CostRowHeader;
-import window.panels.tables.FactoryRowHeader;
-import window.panels.tables.FactoryTableModel;
-import window.panels.tables.MineRowHeader;
-import window.panels.tables.MineTableModel;
-import window.panels.tables.RowHeaderRenderer;
+import window.panels.tables.*;
 
 import java.awt.Color;
 import java.awt.SystemColor;
@@ -40,11 +34,7 @@ import javax.swing.JButton;
 
 public class TablesPanel extends JPanel {
 	
-	public TablesPanel(int mines, int factories) {		
-		// For debug
-//		mines = 4;
-//		factories = 8;
-		
+	public TablesPanel(int mines, int factories) {			
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		setLayout(gridBagLayout);
 		
@@ -101,8 +91,7 @@ public class TablesPanel extends JPanel {
 		factoryTable = new JTable();
 		factoryScroll.setViewportView(factoryTable);
 		factoryTable.setModel(new FactoryTableModel(factories));
-		factoryTable.setCellSelectionEnabled(true);	
-//		factoryTable.getTableHeader().setVisible(false);		
+		factoryTable.setCellSelectionEnabled(true);		
 		ListModel factoryListModel = new FactoryRowHeader(1);
 	    JList factoryHeader = new JList(factoryListModel);
 	    factoryHeader.setBackground(SystemColor.control);
@@ -133,7 +122,7 @@ public class TablesPanel extends JPanel {
 		costTable = new JTable();
 		costTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		costScroll.setViewportView(costTable);
-		InputTableModel costModel = new InputTableModel(mines, factories);
+		MatrixTableModel costModel = new MatrixTableModel(mines, factories);
 		costModel.setEditable(true);
 		costTable.setModel(costModel);
 		ListModel costListModel = new CostRowHeader(mines);
@@ -183,15 +172,14 @@ public class TablesPanel extends JPanel {
 		mineScroll.setSize(mineScroll.getPreferredSize());
 	}
 	
-//	public void resetWidth(int width) {
-//		((GridBagLayout) this.getLayout()).columnWidths = new int[] { width };
-//	}
-	
 	public int[] getMineArray() {
 		int[] result = new int[mineTable.getColumnCount()];
 		for(int i = 0; i < mineTable.getColumnCount(); ++i) {
-			result[i] = (Integer) mineTable.getValueAt(0, i);
-//			Integer.parseInt((String) 
+			try {
+				result[i] = (Integer) mineTable.getValueAt(0, i);
+			} catch (Exception e) {
+				result[i] = 0;
+			}
 		}
 		
 		return result;
@@ -200,7 +188,11 @@ public class TablesPanel extends JPanel {
 	public int[] getFactoryArray() {
 		int[] result = new int[factoryTable.getColumnCount()];
 		for(int i = 0; i < factoryTable.getColumnCount(); ++i) {
-			result[i] = (Integer) factoryTable.getValueAt(0, i);
+			try {
+				result[i] = (Integer) factoryTable.getValueAt(0, i);
+			} catch (Exception e) {
+				result[i] = 0;
+			}
 		}
 		
 		return result;
@@ -211,7 +203,11 @@ public class TablesPanel extends JPanel {
 		
 		for(int i = 0; i < costTable.getRowCount(); ++i) {
 			for(int j = 0; j < costTable.getColumnCount(); ++j) {
-				result[i][j] = (Integer) costTable.getValueAt(i, j);
+				try {
+					result[i][j] = (Integer) costTable.getValueAt(i, j);
+				} catch (Exception e) {
+					result[i][j] = 0;
+				}
 			}
 		}
 		
@@ -220,6 +216,45 @@ public class TablesPanel extends JPanel {
 	
 	public void setOkAction(ActionListener listener) {
 		okButton.addActionListener(listener);
+	}
+	
+	public int checkData() {
+		int mineSum = 0;
+		int factorySum = 0;
+		
+		int[] mineArray = getMineArray();
+		int[] factoryArray = getFactoryArray();
+		int[][] costArray = getCostArray();
+		
+		for(int i = 0; i < mineArray.length; ++i) {
+			if(mineArray[i] < 0)
+				return Const.INCORRECT_DATA;
+			else if (mineArray[i] == 0)
+				return Const.NOT_ENOGHT_DATA;
+			mineSum += mineArray[i];
+		}
+		
+		for(int i = 0; i < factoryArray.length; ++i) {
+			if(factoryArray[i] < 0)
+				return Const.INCORRECT_DATA;
+			else if (factoryArray[i] == 0)
+				return Const.NOT_ENOGHT_DATA;
+			factorySum += factoryArray[i];
+		}
+		
+		if(mineSum != factorySum)
+			return Const.UNEQUAL_ORE_AMOUNT;
+		
+		for(int i = 0; i < costArray.length; ++i) {
+			for(int j = 0; j < costArray[0].length; ++j) {
+				if(costArray[i][j] < 0)
+					return Const.INCORRECT_DATA;
+				else if(costArray[i][j] == 0)
+					return Const.NOT_ENOGHT_DATA;
+			}
+		}
+		
+		return Const.NO_ERRORS;
 	}
 	
 	private JTable factoryTable;
