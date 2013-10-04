@@ -26,7 +26,8 @@ import javax.swing.SwingConstants;
 
 /**
  * Panel with two JTextField's for input number of mines and factories. 
- * It is invoked when the program starts. 
+ * It is invoked when the program starts. May check correctness of 
+ * input data.
  */
 public class SettingsPanel extends JPanel {
 	public SettingsPanel() {

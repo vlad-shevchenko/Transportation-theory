@@ -227,15 +227,18 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 		public void addTable(int[][] data, long time, String message) {
 			this.log.add(message + "\n");
 			
+			String curLine = new String();
+			
 			for(int i = 0; i < data.length; ++i) {
-				String curLine = new String("|");
+				curLine = new String("|");
 				for(int j = 0; j < data[i].length; ++j) {
-					curLine += fillString(" ", 4 - String.valueOf(data[i][j]).length()) + data[i][j] + "|";
+					curLine += fillString(" ", 10 - String.valueOf(data[i][j]).length()) + data[i][j] + "|";
 				}
-				this.log.add(curLine + "\n");
 				this.log.add(fillString("-", curLine.length()) + "\n");
-				
+				this.log.add(curLine + "\n");
 			}
+			
+			this.log.add(fillString("-", curLine.length()) + "\n");
 		}
 		
 		public String nextLine() {

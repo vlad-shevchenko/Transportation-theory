@@ -34,12 +34,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import java.awt.Component;
 
+/**
+ * 
+ */
 public class TablesPanel extends JPanel {
-	
 	public TablesPanel(int mines, int factories) {
 		// Debug
-		mines = 3;
-		factories = 4;
+//		mines = 3;
+//		factories = 4;
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		setLayout(gridBagLayout);
 		

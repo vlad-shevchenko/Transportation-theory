@@ -32,6 +32,9 @@ import java.awt.event.ActionListener;
 import javax.swing.Box;
 import java.awt.ComponentOrientation;
 
+/**
+ * Panel 
+ */
 public class SolutionPanel extends JPanel {
 	public SolutionPanel(int mines, int factories) {		
 		this.setBounds(0, 0, Const.DEFAULT_FRAME_SIZE.width, 300);
