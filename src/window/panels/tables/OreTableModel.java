@@ -13,7 +13,7 @@ import javax.swing.table.TableModel;
  * is its serial number. Any cell is editable.
  *
  */
-public abstract class OreTableModel implements TableModel {
+public class OreTableModel implements TableModel {
 	
 	public OreTableModel(int values) {
 		this.data = new Object[1][values];

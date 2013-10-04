@@ -1,4 +1,5 @@
 package window.panels;
+
 import javax.swing.Action;
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
@@ -23,7 +24,10 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 import javax.swing.SwingConstants;
 
-
+/**
+ * Panel with two JTextField's for input number of mines and factories. 
+ * It is invoked when the program starts. 
+ */
 public class SettingsPanel extends JPanel {
 	public SettingsPanel() {
 		
@@ -60,29 +64,7 @@ public class SettingsPanel extends JPanel {
 		
 		okButton = new JButton("Ok");
 		okPanel.add(okButton);
-	}
-
-	public void setOkAction(ActionListener listener) {
-		okButton.addActionListener(listener);
-	}
-	
-	public int getMineNumber() {
-		try {
-			int mines = Integer.parseInt(mineTextField.getText());
-			return mines;
-		} catch(Exception e) {
-			return 0;
-		}
-	}
-	
-	public int getFactoriesNumber() {
-		try {
-			int factories = Integer.parseInt(factoryTextField.getText());
-			return factories;
-		} catch(Exception e) {
-			return 0;
-		}
-	}
+	}	
 	
 	/**
 	 * Check data in tables and returns error code. 
@@ -109,6 +91,28 @@ public class SettingsPanel extends JPanel {
 		else return Const.NO_ERRORS;
 	}
 	
+	public int getMineNumber() {
+		try {
+			int mines = Integer.parseInt(mineTextField.getText());
+			return mines;
+		} catch(Exception e) {
+			return 0;
+		}
+	}
+	
+	public int getFactoriesNumber() {
+		try {
+			int factories = Integer.parseInt(factoryTextField.getText());
+			return factories;
+		} catch(Exception e) {
+			return 0;
+		}
+	}
+	
+	public JButton getOkButton() {
+		return this.okButton;
+	}
+
 	private JTextField factoryTextField;
 	private JLabel mineLabel;
 	private JLabel factoryLabel;

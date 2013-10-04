@@ -1,4 +1,5 @@
 package window.panels;
+
 import javax.swing.JPanel;
 
 import java.awt.Dimension;
@@ -65,7 +66,7 @@ public class TablesPanel extends JPanel {
 		mineTable = new JTable();
 		mineTable.setBackground(SystemColor.textHighlightText);
 		mineScroll.setViewportView(mineTable);
-		mineTable.setModel(new MineTableModel(mines));
+		mineTable.setModel(new OreTableModel(mines));
 		mineTable.setCellSelectionEnabled(true);	
 		mineTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		ListModel mineListModel = new MineRowHeader(1);
@@ -99,7 +100,7 @@ public class TablesPanel extends JPanel {
 		
 		factoryTable = new JTable();
 		factoryScroll.setViewportView(factoryTable);
-		factoryTable.setModel(new FactoryTableModel(factories));
+		factoryTable.setModel(new OreTableModel(factories));
 		factoryTable.setCellSelectionEnabled(true);		
 		ListModel factoryListModel = new FactoryRowHeader(1);
 	    JList factoryHeader = new JList(factoryListModel);

@@ -51,7 +51,7 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 		rootPanel = Box.createVerticalBox();
 		
 		settingsPanel = new SettingsPanel();
-		settingsPanel.setOkAction(this);		
+		settingsPanel.getOkButton().addActionListener(this);		
 		rootPanel.add(settingsPanel);
 		
 		add(rootPanel);

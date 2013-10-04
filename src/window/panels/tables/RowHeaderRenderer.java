@@ -1,12 +1,13 @@
 package window.panels.tables;
 
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
-
  
+/**
+ * RowHeaderRenderer renders row headers. K.O.
+ */
 public class RowHeaderRenderer extends JLabel implements ListCellRenderer {
   
   public RowHeaderRenderer(JTable table) {
