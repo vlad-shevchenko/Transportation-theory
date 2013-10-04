@@ -5,6 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.*;
@@ -25,6 +29,7 @@ import javax.swing.JFrame;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.plaf.FileChooserUI;
 
@@ -36,7 +41,7 @@ import window.panels.SolutionPanel;
 import window.panels.TablesPanel;
 
 
-public class MainFrame extends JFrame implements ActionListener, WindowListener  {
+public class MainFrame extends JFrame implements ActionListener, WindowListener {
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(this);
@@ -46,7 +51,7 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 		rootPanel = Box.createVerticalBox();
 		
 		settingsPanel = new SettingsPanel();
-		settingsPanel.setOkAction(this);
+		settingsPanel.setOkAction(this);		
 		rootPanel.add(settingsPanel);
 		
 		add(rootPanel);
@@ -61,14 +66,14 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 	public void actionPerformed(ActionEvent ev) {
 		if( ((JButton) ev.getSource()).getText().equals("Ok") ) {
 			int error = settingsPanel.checkData();
-			if(error != 0) {
+			if(error != Const.NO_ERRORS) {
 				JOptionPane.showMessageDialog(this, errorMessages[error], "Ошибка", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
 			rootPanel.removeAll();
 	
-			tablesPanel = new TablesPanel(settingsPanel.getMineNumber(), settingsPanel.getFactoriesNumber());
-			tablesPanel.setOkAction(this);
+			tablesPanel = new TablesPanel(settingsPanel.getMineNumber(), settingsPanel.getFactoriesNumber());			
+			tablesPanel.getOkButton().addActionListener(this);			
 			rootPanel.add(tablesPanel);
 			
 			this.setSize(Const.DEFAULT_FRAME_SIZE);
@@ -79,7 +84,7 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 					settingsPanel.getFactoriesNumber() + " factories.");
 		} else if ( ((JButton) ev.getSource()).getText().equals("Посчитать") ) {
 			int error = tablesPanel.checkData();
-			if(error != 0) {
+			if(error != Const.NO_ERRORS) {
 				JOptionPane.showMessageDialog(this, errorMessages[error], "Ошибка", JOptionPane.WARNING_MESSAGE);
 				this.revalidate();
 				this.repaint();
@@ -157,8 +162,8 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 			break;
 		}
 		case JFileChooser.CANCEL_OPTION : {				
-			JOptionPane.showMessageDialog(this,
-				"Отмена", "Отмена", JOptionPane.WARNING_MESSAGE);
+//			JOptionPane.showMessageDialog(this,
+//				"Отмена", "Отмена", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		case JFileChooser.ERROR_OPTION : {

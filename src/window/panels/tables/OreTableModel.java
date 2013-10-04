@@ -1,15 +1,21 @@
 package window.panels.tables;
 
-
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
-public abstract class AbstractOreTableModel implements TableModel {
+/**
+ * Table model for MineTable and FactoryTable. Contains 
+ * one-dimensional Object array(rather, Object[1][] - 
+ * its required by interface) of table data. Column header 
+ * is its serial number. Any cell is editable.
+ *
+ */
+public abstract class OreTableModel implements TableModel {
 	
-	public AbstractOreTableModel(int values) {
+	public OreTableModel(int values) {
 		this.data = new Object[1][values];
 		columnCount = values;
 	}

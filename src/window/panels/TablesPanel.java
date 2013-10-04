@@ -31,15 +31,20 @@ import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import java.awt.Component;
 
 public class TablesPanel extends JPanel {
 	
-	public TablesPanel(int mines, int factories) {			
+	public TablesPanel(int mines, int factories) {
+		// Debug
+		mines = 3;
+		factories = 4;
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		setLayout(gridBagLayout);
 		
 		// "Количество товара у производителей"
 		label = new JLabel("\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430 \u0443 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u0435\u0439");
+		label.setFocusable(false);
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.insets = new Insets(0, 0, 5, 0);
 		gbc_label.gridx = 0;
@@ -47,6 +52,7 @@ public class TablesPanel extends JPanel {
 		add(label, gbc_label);
 		
 		mineScroll = new JScrollPane();
+		mineScroll.setFocusable(false);
 		GridBagConstraints gbc_mineScroll = new GridBagConstraints();
 		gbc_mineScroll.weighty = 0.1;
 		gbc_mineScroll.weightx = 0.1;
@@ -64,6 +70,7 @@ public class TablesPanel extends JPanel {
 		mineTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		ListModel mineListModel = new MineRowHeader(1);
 	    JList mineHeader = new JList(mineListModel);
+	    mineHeader.setFocusable(false);
 	    mineHeader.setBackground(SystemColor.control);
 	    mineHeader.setFixedCellWidth(150);
 	    mineHeader.setFixedCellHeight(mineTable.getRowHeight() + mineTable.getRowMargin() - 1);
@@ -72,6 +79,7 @@ public class TablesPanel extends JPanel {
 		
 	    // "Количество товара, необходимого потребителям"
 		label_1 = new JLabel("\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430, \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E\u0433\u043E \u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044F\u043C");
+		label_1.setFocusable(false);
 		GridBagConstraints gbc_label_1 = new GridBagConstraints();
 		gbc_label_1.insets = new Insets(0, 0, 5, 0);
 		gbc_label_1.gridx = 0;
@@ -79,6 +87,7 @@ public class TablesPanel extends JPanel {
 		add(label_1, gbc_label_1);
 		
 		factoryScroll = new JScrollPane();
+		factoryScroll.setFocusable(false);
 		GridBagConstraints gbc_factoryScroll = new GridBagConstraints();
 		gbc_factoryScroll.weighty = 0.1;
 		gbc_factoryScroll.weightx = 0.1;
@@ -94,6 +103,7 @@ public class TablesPanel extends JPanel {
 		factoryTable.setCellSelectionEnabled(true);		
 		ListModel factoryListModel = new FactoryRowHeader(1);
 	    JList factoryHeader = new JList(factoryListModel);
+	    factoryHeader.setFocusable(false);
 	    factoryHeader.setBackground(SystemColor.control);
 	    factoryHeader.setFixedCellWidth(150);
 	    factoryHeader.setFixedCellHeight(factoryTable.getRowHeight() + factoryTable.getRowMargin() - 1);
@@ -102,6 +112,7 @@ public class TablesPanel extends JPanel {
 	    factoryTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		
 		label_2 = new JLabel("\u041C\u0430\u0442\u0440\u0438\u0446\u0430 \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u0438");
+		label_2.setFocusable(false);
 		GridBagConstraints gbc_label_2 = new GridBagConstraints();
 		gbc_label_2.insets = new Insets(0, 0, 5, 0);
 		gbc_label_2.gridx = 0;
@@ -109,6 +120,7 @@ public class TablesPanel extends JPanel {
 		add(label_2, gbc_label_2);
 		
 		costScroll = new JScrollPane();
+		costScroll.setFocusable(false);
 		costScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		GridBagConstraints gbc_costScroll = new GridBagConstraints();
 		gbc_costScroll.insets = new Insets(0, 0, 5, 0);
@@ -127,6 +139,7 @@ public class TablesPanel extends JPanel {
 		costTable.setModel(costModel);
 		ListModel costListModel = new CostRowHeader(mines);
 	    JList costHeader = new JList(costListModel);
+	    costHeader.setFocusable(false);
 	    costHeader.setBackground(SystemColor.control);
 	    costHeader.setFixedCellWidth(150);
 	    costHeader.setFixedCellHeight(costTable.getRowHeight() + costTable.getRowMargin() - 1);
@@ -214,10 +227,6 @@ public class TablesPanel extends JPanel {
 		return result;
 	}
 	
-	public void setOkAction(ActionListener listener) {
-		okButton.addActionListener(listener);
-	}
-	
 	public int checkData() {
 		int mineSum = 0;
 		int factorySum = 0;
@@ -257,6 +266,22 @@ public class TablesPanel extends JPanel {
 		return Const.NO_ERRORS;
 	}
 	
+	public JButton getOkButton() {
+		return this.okButton;
+	}
+	
+	public JTable getFactoryTable() {
+		return this.factoryTable;
+	}
+
+	public JTable getMineTable() {
+		return this.mineTable;
+	}
+
+	public JTable getCostTable() {
+		return this.costTable;
+	}
+
 	private JTable factoryTable;
 	private JTable mineTable;
 	private JTable costTable;

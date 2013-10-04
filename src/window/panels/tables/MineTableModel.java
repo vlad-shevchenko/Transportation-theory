@@ -1,7 +1,7 @@
 package window.panels.tables;
 
 
-public class MineTableModel extends AbstractOreTableModel {
+public class MineTableModel extends OreTableModel {
 
 	public MineTableModel(int values) {
 		super(values);

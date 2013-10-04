@@ -3,7 +3,7 @@ package start;
 import java.awt.Dimension;
 
 /**
- * Class contains static fields for encapsulating of different constants 
+ * Class encapsulates different constants 
  */
 public class Const {
 	// Frame sizes
