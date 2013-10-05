@@ -1,8 +1,10 @@
 package solver;
+
 /**
- * Solving of math model. Takes object of Data; method solve() returns int[][] 
+ * Solving of math model. Takes object of Data; method solve() returns int[][]
  * with necessary shipping
  */
+
 public class Solver {
 	public Solver(Data data) {
 		this.data = data;
@@ -10,12 +12,13 @@ public class Solver {
 
 	public int[][] solve() {
 		int[][] solution = new int[data.getMines().length][data.getFactories().length];
-		
+
 		while (!data.isAllCellsForbidden()) {
 			Pair coords = minCost(); // coords of minimal cost in table
-			
-			int dec = minOf(data.getMines()[coords.a], data.getFactories()[coords.b]);
-			
+
+			int dec = minOf(data.getMines()[coords.a],
+					data.getFactories()[coords.b]);
+
 			data.decMineProposal(coords.a, dec);
 			data.decFactoryConsume(coords.b, dec);
 
@@ -23,10 +26,10 @@ public class Solver {
 				data.removeMine(coords.a);
 			if (data.getFactories()[coords.b] == 0)
 				data.removeFactory(coords.b);
-			
+
 			solution[coords.a][coords.b] = dec;
 		}
-		
+
 		return solution;
 	}
 

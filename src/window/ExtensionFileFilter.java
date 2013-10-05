@@ -6,33 +6,34 @@ import java.util.ArrayList;
 import javax.swing.filechooser.FileFilter;
 
 /**
- * File filter, used in open/save dialog window to filter 
- * displayed files. 
+ * File filter, used in open/save dialog window to filter displayed files.
  */
+
 public class ExtensionFileFilter extends FileFilter {
 
 	public void addExtension(String ext) {
-		if(!ext.startsWith("."))
+		if (!ext.startsWith("."))
 			extensions.add("." + ext);
-		else 
+		else
 			extensions.add(ext);
 	}
-	
+
 	public boolean accept(File f) {
-		if(f.isDirectory()) return true;
-		
-		for(String ext : extensions) {
-			if(f.getName().toLowerCase().endsWith(ext))
+		if (f.isDirectory())
+			return true;
+
+		for (String ext : extensions) {
+			if (f.getName().toLowerCase().endsWith(ext))
 				return true;
 		}
-		
+
 		return false;
 	}
 
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
