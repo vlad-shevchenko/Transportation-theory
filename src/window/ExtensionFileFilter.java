@@ -5,6 +5,10 @@ import java.util.ArrayList;
 
 import javax.swing.filechooser.FileFilter;
 
+/**
+ * File filter, used in open/save dialog window to filter 
+ * displayed files. 
+ */
 public class ExtensionFileFilter extends FileFilter {
 
 	public void addExtension(String ext) {

@@ -1,4 +1,5 @@
 package window;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -40,7 +41,16 @@ import window.panels.SettingsPanel;
 import window.panels.SolutionPanel;
 import window.panels.TablesPanel;
 
-
+/**
+ * Main window frame. At first displays SettingsPanel object. 
+ * After submitting base settings Displays TablesPanel object 
+ * with tables to input problem data. And finally displays 
+ * SolutionPanel object to show shipping matrix and save 
+ * program log.
+ * 
+ * Also frame handles the click events of a buttons and hooks 
+ * frame close event(to show confirm dialog window).  
+ */
 public class MainFrame extends JFrame implements ActionListener, WindowListener {
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -154,21 +164,21 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 				}
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(this,
-						"Ошибка при записи файла. Попробуйте выбрать другой файл", "Ошибка", JOptionPane.WARNING_MESSAGE);
+						"Ошибка при записи файла. Попробуйте выбрать другой файл", 
+						"Ошибка", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
 			
 			this.saved = true;
 			break;
 		}
-		case JFileChooser.CANCEL_OPTION : {				
-//			JOptionPane.showMessageDialog(this,
-//				"Отмена", "Отмена", JOptionPane.WARNING_MESSAGE);
+		case JFileChooser.CANCEL_OPTION : {
 			return;
 		}
 		case JFileChooser.ERROR_OPTION : {
 			JOptionPane.showMessageDialog(this,
-					"Ошибка при выборе файла. Результаты не были сохранены", "Ошибка", JOptionPane.WARNING_MESSAGE);
+					"Ошибка при выборе файла. Результаты не были сохранены", 
+					"Ошибка", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		}

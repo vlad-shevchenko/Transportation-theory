@@ -27,7 +27,8 @@ import javax.swing.SwingConstants;
 /**
  * Panel with two JTextField's for input number of mines and factories. 
  * It is invoked when the program starts. May check correctness of 
- * input data.
+ * input data. Ok button replaces this panel with TablesPanel(if all data 
+ * is correct)
  */
 public class SettingsPanel extends JPanel {
 	public SettingsPanel() {
@@ -44,6 +45,7 @@ public class SettingsPanel extends JPanel {
 		mineInputPanel.add(mineLabel);
 		
 		mineTextField = new JTextField();
+		mineTextField.setToolTipText("\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u0435\u0439");
 		mineTextField.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		mineTextField.setColumns(5);
 		mineInputPanel.add(mineTextField, BorderLayout.EAST);
@@ -56,6 +58,7 @@ public class SettingsPanel extends JPanel {
 		factoryInputPanel.add(factoryLabel, BorderLayout.WEST);
 		
 		factoryTextField = new JTextField();
+		factoryTextField.setToolTipText("\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u0435\u0439");
 		factoryTextField.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		factoryInputPanel.add(factoryTextField, BorderLayout.EAST);
 		factoryTextField.setColumns(5);
@@ -64,6 +67,7 @@ public class SettingsPanel extends JPanel {
 		add(okPanel);
 		
 		okButton = new JButton("Ok");
+		okButton.setToolTipText("\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044C \u0432\u0432\u043E\u0434");
 		okPanel.add(okButton);
 	}	
 	

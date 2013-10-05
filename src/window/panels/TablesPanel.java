@@ -35,7 +35,10 @@ import javax.swing.JButton;
 import java.awt.Component;
 
 /**
- * 
+ * Panel for input of base data: amount of ore in mines, required 
+ * amount of ore factories(yes, its google-translate...) and 
+ * cost matrix. Contains tables for input this data and okButton, 
+ * which check correctness of data and start solving of problem. 
  */
 public class TablesPanel extends JPanel {
 	public TablesPanel(int mines, int factories) {
@@ -55,6 +58,7 @@ public class TablesPanel extends JPanel {
 		add(label, gbc_label);
 		
 		mineScroll = new JScrollPane();
+		mineScroll.setToolTipText("");
 		mineScroll.setFocusable(false);
 		GridBagConstraints gbc_mineScroll = new GridBagConstraints();
 		gbc_mineScroll.weighty = 0.1;
@@ -66,6 +70,7 @@ public class TablesPanel extends JPanel {
 		add(mineScroll, gbc_mineScroll);
 		
 		mineTable = new JTable();
+		mineTable.setToolTipText("\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432 \u044F\u0447\u0435\u0439\u043A\u0438 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430 \u0443 \u043A\u0430\u0436\u0434\u043E\u0433\u043E \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044F");
 		mineTable.setBackground(SystemColor.textHighlightText);
 		mineScroll.setViewportView(mineTable);
 		mineTable.setModel(new OreTableModel(mines));
@@ -73,6 +78,7 @@ public class TablesPanel extends JPanel {
 		mineTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		ListModel mineListModel = new MineRowHeader(1);
 	    JList mineHeader = new JList(mineListModel);
+	    mineHeader.setToolTipText("\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432 \u044F\u0447\u0435\u0439\u043A\u0438 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430 \u0443 \u043A\u0430\u0436\u0434\u043E\u0433\u043E \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044F");
 	    mineHeader.setFocusable(false);
 	    mineHeader.setBackground(SystemColor.control);
 	    mineHeader.setFixedCellWidth(150);
@@ -90,6 +96,7 @@ public class TablesPanel extends JPanel {
 		add(label_1, gbc_label_1);
 		
 		factoryScroll = new JScrollPane();
+		factoryScroll.setToolTipText("");
 		factoryScroll.setFocusable(false);
 		GridBagConstraints gbc_factoryScroll = new GridBagConstraints();
 		gbc_factoryScroll.weighty = 0.1;
@@ -101,11 +108,13 @@ public class TablesPanel extends JPanel {
 		add(factoryScroll, gbc_factoryScroll);
 		
 		factoryTable = new JTable();
+		factoryTable.setToolTipText("\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432 \u044F\u0447\u0435\u0439\u043A\u0438 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430, \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E\u0433\u043E \u043A\u0430\u0436\u0434\u043E\u043C\u0443 \u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E");
 		factoryScroll.setViewportView(factoryTable);
 		factoryTable.setModel(new OreTableModel(factories));
 		factoryTable.setCellSelectionEnabled(true);		
 		ListModel factoryListModel = new FactoryRowHeader(1);
 	    JList factoryHeader = new JList(factoryListModel);
+	    factoryHeader.setToolTipText("\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432 \u044F\u0447\u0435\u0439\u043A\u0438 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430, \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E\u0433\u043E \u043A\u0430\u0436\u0434\u043E\u043C\u0443 \u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E");
 	    factoryHeader.setFocusable(false);
 	    factoryHeader.setBackground(SystemColor.control);
 	    factoryHeader.setFixedCellWidth(150);
@@ -123,6 +132,7 @@ public class TablesPanel extends JPanel {
 		add(label_2, gbc_label_2);
 		
 		costScroll = new JScrollPane();
+		costScroll.setToolTipText("");
 		costScroll.setFocusable(false);
 		costScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		GridBagConstraints gbc_costScroll = new GridBagConstraints();
@@ -135,6 +145,7 @@ public class TablesPanel extends JPanel {
 		add(costScroll, gbc_costScroll);
 		
 		costTable = new JTable();
+		costTable.setToolTipText("<html>\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432 \u043C\u0430\u0442\u0440\u0438\u0446\u0443 \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C \u0434\u043E\u0441\u0442\u0430\u0432\u043A\u0438 \u0435\u0434\u0438\u043D\u0438\u0446\u044B \u0442\u043E\u0432\u0430\u0440\u0430 \u043E\u0442 <br>\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u043D\u043E\u0433\u043E \u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044F(\u0443\u043A\u0430\u0437\u0430\u043D \u0432 \u0433\u043E\u0440\u0438\u0437\u043E\u043D\u0442\u0430\u043B\u044C\u043D\u043E\u043C \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0435) <br>\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u043D\u043E\u043C\u0443 \r\n\u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E(\u0443\u043A\u0430\u0437\u0430\u043D \u0432 \u0432\u0435\u0440\u0442\u0438\u043A\u0430\u043B\u044C\u043D\u043E\u043C \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0435)</html>");
 		costTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		costScroll.setViewportView(costTable);
 		MatrixTableModel costModel = new MatrixTableModel(mines, factories);
@@ -142,6 +153,7 @@ public class TablesPanel extends JPanel {
 		costTable.setModel(costModel);
 		ListModel costListModel = new CostRowHeader(mines);
 	    JList costHeader = new JList(costListModel);
+	    costHeader.setToolTipText("<html>\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432 \u043C\u0430\u0442\u0440\u0438\u0446\u0443 \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C \u0434\u043E\u0441\u0442\u0430\u0432\u043A\u0438 \u0435\u0434\u0438\u043D\u0438\u0446\u044B \u0442\u043E\u0432\u0430\u0440\u0430 \u043E\u0442 <br>\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u043D\u043E\u0433\u043E \u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044F(\u0443\u043A\u0430\u0437\u0430\u043D \u0432 \u0433\u043E\u0440\u0438\u0437\u043E\u043D\u0442\u0430\u043B\u044C\u043D\u043E\u043C \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0435) <br>\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u043D\u043E\u043C\u0443 \r\n\u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E(\u0443\u043A\u0430\u0437\u0430\u043D \u0432 \u0432\u0435\u0440\u0442\u0438\u043A\u0430\u043B\u044C\u043D\u043E\u043C \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0435)</html>");
 	    costHeader.setFocusable(false);
 	    costHeader.setBackground(SystemColor.control);
 	    costHeader.setFixedCellWidth(150);
@@ -156,6 +168,7 @@ public class TablesPanel extends JPanel {
 		
 		// "Посчитать"
 		okButton = new JButton("\u041F\u043E\u0441\u0447\u0438\u0442\u0430\u0442\u044C");
+		okButton.setToolTipText("\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044C \u0432\u0432\u043E\u0434 \u0434\u0430\u043D\u043D\u044B\u0445 \u0438 \u0440\u0435\u0448\u0438\u0442\u044C \u0437\u0430\u0434\u0430\u0447\u0443");
 		GridBagConstraints tablesOkButton = new GridBagConstraints();
 		tablesOkButton.gridx = 0;
 		tablesOkButton.gridy = 6;
@@ -230,6 +243,11 @@ public class TablesPanel extends JPanel {
 		return result;
 	}
 	
+	/**
+	 * Check data in tables and returns error code. 
+	 * All codes - "public static int" fields of Const.java
+	 * @return error code
+	 */
 	public int checkData() {
 		int mineSum = 0;
 		int factorySum = 0;
