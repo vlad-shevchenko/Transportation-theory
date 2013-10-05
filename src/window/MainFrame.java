@@ -75,6 +75,9 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 
 	public void actionPerformed(ActionEvent ev) {
 		if( ((JButton) ev.getSource()).getText().equals("Ok") ) {
+//			 SettingsPanel -> okButton -> Click
+//			 If there are no errors in data, replace settingsPanel with 
+//			 tablesPanel.
 			int error = settingsPanel.checkData();
 			if(error != Const.NO_ERRORS) {
 				JOptionPane.showMessageDialog(this, errorMessages[error], "Ошибка", JOptionPane.WARNING_MESSAGE);
@@ -93,6 +96,10 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 					settingsPanel.getMineNumber() + " mines and " +
 					settingsPanel.getFactoriesNumber() + " factories.");
 		} else if ( ((JButton) ev.getSource()).getText().equals("Посчитать") ) {
+			// TablesPanel -> okButton -> Click
+			//
+			// If there are no errors, replace tablesPanel with 
+			// solutionPanel.s
 			int error = tablesPanel.checkData();
 			if(error != Const.NO_ERRORS) {
 				JOptionPane.showMessageDialog(this, errorMessages[error], "Ошибка", JOptionPane.WARNING_MESSAGE);
@@ -136,8 +143,10 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 			this.revalidate();
 			this.repaint();
 		} else if ( ((JButton) ev.getSource()).getText().equals("Сохранить") ) {
+			// SolutionPanel -> saveButton -> Click
 			saveLog();
 		} else if ( ((JButton) ev.getSource()).getText().equals("Выход") ) {
+			// SolutionPanel -> exitButton -> Click
 			exit();
 		}
 	}
