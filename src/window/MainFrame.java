@@ -51,8 +51,7 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 		this.setPreferredSize(Const.DEFAULT_FRAME_SIZE);
 		this.setVisible(true);
 
-		this.log.addItem(GregorianCalendar.getInstance().getTimeInMillis(),
-				"Start");
+		this.log.addItem(GregorianCalendar.getInstance().getTimeInMillis(), "Start");
 	}
 
 	public void actionPerformed(ActionEvent ev) {
@@ -85,13 +84,11 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 			// TablesPanel -> okButton -> Click
 			//
 			// If there are no errors, replace tablesPanel with
-			// solutionPanel.s
+			// solutionPanel
 			int error = tablesPanel.checkData();
 			if (error != Const.NO_ERRORS) {
 				JOptionPane.showMessageDialog(this, errorMessages[error],
 						"Ошибка", JOptionPane.WARNING_MESSAGE);
-				this.revalidate();
-				this.repaint();
 				return;
 			}
 			this.saved = false;
@@ -126,8 +123,8 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 			solutionPanel.setExitAction(this);
 			this.add(solutionPanel);
 
-			this.setSize(Const.DEFAULT_FRAME_SIZE);
-			this.revalidate();
+			this.setSize(Const.DEFAULT_FRAME_SIZE.width - 5, 
+					Const.DEFAULT_FRAME_SIZE.height - 5);
 			this.repaint();
 		} else if (((JButton) ev.getSource()).getText().equals("Сохранить")) {
 			// SolutionPanel -> saveButton -> Click
