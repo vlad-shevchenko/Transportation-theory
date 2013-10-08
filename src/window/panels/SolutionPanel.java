@@ -2,7 +2,6 @@ package window.panels;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.SystemColor;
 
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -28,6 +27,7 @@ import java.awt.Component;
 import java.awt.event.ActionListener;
 
 import javax.swing.Box;
+import javax.swing.UIManager;
 
 /**
  * Panel contains table with shipping matrix and buttons to save log and quit.
@@ -77,6 +77,7 @@ public class SolutionPanel extends JPanel {
 		add(solutionScroll, gbc_solutionScroll);
 
 		solutionTable = new JTable();
+		solutionTable.setBackground(UIManager.getColor("Button.background"));
 		solutionTable
 				.setToolTipText("<html>\u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442 \u0440\u0430\u0431\u043E\u0442\u044B \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B - \u043C\u0430\u0442\u0440\u0438\u0446\u0430 \u043F\u0435\u0440\u0435\u0432\u043E\u0437\u043E\u043A. <br>\r\n\u0412 \u044F\u0447\u0435\u0439\u043A\u0430\u0445 \u0442\u0430\u0431\u043B\u0438\u0446\u044B \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430, <br>\r\n\u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E \u043F\u0435\u0440\u0435\u0432\u0435\u0437\u0442\u0438 \u043E\u0442 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044F(\u0441\u0442\u0440\u043E\u043A\u0430) \u043A <br>\r\n\u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E(\u0441\u0442\u043E\u043B\u0431\u0435\u0446)</html>");
 		solutionTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -85,7 +86,7 @@ public class SolutionPanel extends JPanel {
 		JList<String> rowHeader = new JList<String>(listModel);
 		rowHeader
 				.setToolTipText("<html>\u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442 \u0440\u0430\u0431\u043E\u0442\u044B \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B - \u043C\u0430\u0442\u0440\u0438\u0446\u0430 \u043F\u0435\u0440\u0435\u0432\u043E\u0437\u043E\u043A. <br>\r\n\u0412 \u044F\u0447\u0435\u0439\u043A\u0430\u0445 \u0442\u0430\u0431\u043B\u0438\u0446\u044B \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430, <br>\r\n\u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E \u043F\u0435\u0440\u0435\u0432\u0435\u0437\u0442\u0438 \u043E\u0442 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044F(\u0441\u0442\u0440\u043E\u043A\u0430) \u043A <br>\r\n\u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E(\u0441\u0442\u043E\u043B\u0431\u0435\u0446)</html>");
-		rowHeader.setBackground(SystemColor.control);
+		rowHeader.setBackground(UIManager.getColor("Button.background"));
 		rowHeader.setFixedCellWidth(150);
 		rowHeader.setFixedCellHeight(solutionTable.getRowHeight()
 				+ solutionTable.getRowMargin() - 1);
