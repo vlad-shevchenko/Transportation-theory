@@ -23,6 +23,7 @@ import window.panels.tables.*;
 import java.awt.SystemColor;
 
 import javax.swing.JButton;
+import javax.swing.UIManager;
 
 /**
  * Panel for input of base data: amount of ore in mines, required amount of ore
@@ -74,10 +75,10 @@ public class TablesPanel extends JPanel {
 		mineTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		ListModel<String> mineListModel = new MineRowHeader(1);
 		JList<String> mineHeader = new JList<String>(mineListModel);
+		mineHeader.setBackground(UIManager.getColor("Button.background"));
 		mineHeader
 				.setToolTipText("\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432 \u044F\u0447\u0435\u0439\u043A\u0438 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430 \u0443 \u043A\u0430\u0436\u0434\u043E\u0433\u043E \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044F");
 		mineHeader.setFocusable(false);
-		mineHeader.setBackground(SystemColor.control);
 		mineHeader.setFixedCellWidth(150);
 		mineHeader.setFixedCellHeight(mineTable.getRowHeight()
 				+ mineTable.getRowMargin() - 1);
@@ -114,10 +115,10 @@ public class TablesPanel extends JPanel {
 		factoryTable.setCellSelectionEnabled(true);
 		ListModel<String> factoryListModel = new FactoryRowHeader(1);
 		JList<String> factoryHeader = new JList<String>(factoryListModel);
+		factoryHeader.setBackground(UIManager.getColor("Button.background"));
 		factoryHeader
 				.setToolTipText("\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432 \u044F\u0447\u0435\u0439\u043A\u0438 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430, \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E\u0433\u043E \u043A\u0430\u0436\u0434\u043E\u043C\u0443 \u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E");
 		factoryHeader.setFocusable(false);
-		factoryHeader.setBackground(SystemColor.control);
 		factoryHeader.setFixedCellWidth(150);
 		factoryHeader.setFixedCellHeight(factoryTable.getRowHeight()
 				+ factoryTable.getRowMargin() - 1);
@@ -158,10 +159,10 @@ public class TablesPanel extends JPanel {
 		costTable.setModel(costModel);
 		ListModel<String> costListModel = new CostRowHeader(mines);
 		JList<String> costHeader = new JList<String>(costListModel);
+		costHeader.setBackground(UIManager.getColor("Button.background"));
 		costHeader
 				.setToolTipText("<html>\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432 \u043C\u0430\u0442\u0440\u0438\u0446\u0443 \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C \u0434\u043E\u0441\u0442\u0430\u0432\u043A\u0438 \u0435\u0434\u0438\u043D\u0438\u0446\u044B \u0442\u043E\u0432\u0430\u0440\u0430 \u043E\u0442 <br>\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u043D\u043E\u0433\u043E \u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044F(\u0443\u043A\u0430\u0437\u0430\u043D \u0432 \u0433\u043E\u0440\u0438\u0437\u043E\u043D\u0442\u0430\u043B\u044C\u043D\u043E\u043C \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0435) <br>\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u043D\u043E\u043C\u0443 \r\n\u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E(\u0443\u043A\u0430\u0437\u0430\u043D \u0432 \u0432\u0435\u0440\u0442\u0438\u043A\u0430\u043B\u044C\u043D\u043E\u043C \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0435)</html>");
 		costHeader.setFocusable(false);
-		costHeader.setBackground(SystemColor.control);
 		costHeader.setFixedCellWidth(150);
 		costHeader.setFixedCellHeight(costTable.getRowHeight()
 				+ costTable.getRowMargin() - 1);
@@ -203,14 +204,6 @@ public class TablesPanel extends JPanel {
 			column.setPreferredWidth(110);
 			column.setMaxWidth(120);
 		}
-
-		mineScroll
-				.setPreferredSize(new Dimension(Const.MAX_FRAME_SIZE.width,
-						(mineTable.getRowCount() + 0)
-								* mineHeader.getFixedCellHeight()));
-		mineScroll.setMaximumSize(mineScroll.getPreferredSize());
-		mineScroll.setMinimumSize(mineScroll.getPreferredSize());
-		mineScroll.setSize(mineScroll.getPreferredSize());
 	}
 
 	public int[] getMineArray() {

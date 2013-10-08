@@ -10,7 +10,7 @@ public class Const {
 	// Frame sizes
 	public static Dimension START_FRAME_SIZE = new Dimension(300, 175);
 	public static Dimension DEFAULT_FRAME_SIZE = new Dimension(600, 450);
-	public static Dimension MIN_FRAME_SIZE = new Dimension(400, 400);
+	public static Dimension MIN_FRAME_SIZE = new Dimension(400, 450);
 	public static Dimension MAX_FRAME_SIZE = new Dimension(800, 600);
 
 	// Errors codes, returned by checkData()

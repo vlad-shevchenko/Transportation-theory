@@ -51,7 +51,8 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 		this.setPreferredSize(Const.DEFAULT_FRAME_SIZE);
 		this.setVisible(true);
 
-		this.log.addItem(GregorianCalendar.getInstance().getTimeInMillis(), "Start");
+		this.log.addItem(GregorianCalendar.getInstance().getTimeInMillis(),
+				"Start");
 	}
 
 	public void actionPerformed(ActionEvent ev) {
@@ -72,6 +73,7 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 			tablesPanel.getOkButton().addActionListener(this);
 			rootPanel.add(tablesPanel);
 
+			this.setMinimumSize(Const.MIN_FRAME_SIZE);
 			this.setSize(Const.DEFAULT_FRAME_SIZE);
 
 			this.log.addItem(
@@ -123,7 +125,7 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 			solutionPanel.setExitAction(this);
 			this.add(solutionPanel);
 
-			this.setSize(Const.DEFAULT_FRAME_SIZE.width - 5, 
+			this.setSize(Const.DEFAULT_FRAME_SIZE.width - 5,
 					Const.DEFAULT_FRAME_SIZE.height - 5);
 			this.repaint();
 		} else if (((JButton) ev.getSource()).getText().equals("Сохранить")) {
