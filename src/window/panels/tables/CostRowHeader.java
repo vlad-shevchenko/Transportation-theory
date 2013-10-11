@@ -1,9 +1,9 @@
 package window.panels.tables;
 
 /**
- * List model for horizontal header for tables. Exactly repeats
- * AbstractRowHeader, but set caption as <Производитель i>, where i is row
- * serial number.
+ * ListModel для горизонтальных заголовков таблиц. В точности повторяет
+ * AbstractRowHeader, кроме имён заголовков: <Производитель i>, где i -
+ * порядковый номер заголовка.
  */
 
 public class CostRowHeader extends AbstractRowHeader {

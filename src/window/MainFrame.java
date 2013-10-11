@@ -1,5 +1,7 @@
 package window;
 
+import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -8,11 +10,13 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
+
 import javax.swing.Box;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+
 import solver.Data;
 import solver.Solver;
 import start.Const;
@@ -20,24 +24,33 @@ import window.panels.SettingsPanel;
 import window.panels.SolutionPanel;
 import window.panels.TablesPanel;
 
+import java.awt.Toolkit;
+
 /**
- * Main window frame. At first displays SettingsPanel object. After submitting
- * base settings Displays TablesPanel object with tables to input problem data.
- * And finally displays SolutionPanel object to show shipping matrix and save
- * program log.
+ * Фрейм главного окна. Сначала отображает объект SettingsPanel. После
+ * подтверждения ввода начальных параметров(при их корректности) заменяет его на
+ * TablesPanel для ввода остальных данных. В конце выводит объект SolutionPanel
+ * с матрицей перевозок.
  * 
- * Also frame handles the click events of a buttons and hooks frame close
- * event(to show confirm dialog window).
+ * Также обрабатывает нажатия на кнопки и перехватывает событие закрытия
+ * окна(для вывода диалогового окна с подтверждением)
  */
 
 public class MainFrame extends JFrame implements ActionListener, WindowListener {
 	private static final long serialVersionUID = 1L;
 
 	public MainFrame() {
+		Image frameIcon = Toolkit.getDefaultToolkit().getImage("frameIcon.png");
+		setIconImage(frameIcon);
+		setTitle("Транспортная задача");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(this);
-		setTitle("Транспортная задача");
 		this.saved = true;
+
+		this.setBounds(100, 100, 0, 0);
+		this.setMinimumSize(Const.START_FRAME_SIZE);
+		this.setMaximumSize(Const.DEFAULT_FRAME_SIZE);
+		this.setSize(Const.START_FRAME_SIZE);
 
 		rootPanel = Box.createVerticalBox();
 
@@ -45,10 +58,7 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 		settingsPanel.getOkButton().addActionListener(this);
 		rootPanel.add(settingsPanel);
 
-		add(rootPanel);
-		this.setBounds(100, 100, 0, 0);
-		this.setSize(Const.START_FRAME_SIZE);
-		this.setPreferredSize(Const.DEFAULT_FRAME_SIZE);
+		this.add(rootPanel);
 		this.setVisible(true);
 
 		this.log.addItem(GregorianCalendar.getInstance().getTimeInMillis(),
@@ -58,8 +68,8 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 	public void actionPerformed(ActionEvent ev) {
 		if (((JButton) ev.getSource()).getText().equals("Ok")) {
 			// SettingsPanel -> okButton -> Click
-			// If there are no errors in data, replace settingsPanel with
-			// tablesPanel.
+			//
+			// Если нету ошибок во введённых данных, выводит объект TablesPanel
 			int error = settingsPanel.checkData();
 			if (error != Const.NO_ERRORS) {
 				JOptionPane.showMessageDialog(this, errorMessages[error],
@@ -74,6 +84,7 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 			rootPanel.add(tablesPanel);
 
 			this.setMinimumSize(Const.MIN_FRAME_SIZE);
+			this.setMaximumSize(Const.MAX_FRAME_SIZE);
 			this.setSize(Const.DEFAULT_FRAME_SIZE);
 
 			this.log.addItem(
@@ -85,8 +96,8 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 		} else if (((JButton) ev.getSource()).getText().equals("Посчитать")) {
 			// TablesPanel -> okButton -> Click
 			//
-			// If there are no errors, replace tablesPanel with
-			// solutionPanel
+			// Если нету ошибок во введённых данных, выводит объект
+			// SolutionPanel
 			int error = tablesPanel.checkData();
 			if (error != Const.NO_ERRORS) {
 				JOptionPane.showMessageDialog(this, errorMessages[error],
@@ -123,8 +134,10 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 			solutionPanel.setTableData(solution);
 			solutionPanel.setSaveAction(this);
 			solutionPanel.setExitAction(this);
-			this.add(solutionPanel);
+			getContentPane().add(solutionPanel);
 
+			this.setMinimumSize(new Dimension(Const.MIN_FRAME_SIZE.width,
+					Const.MIN_FRAME_SIZE.height - 100));
 			this.setSize(Const.DEFAULT_FRAME_SIZE.width - 5,
 					Const.DEFAULT_FRAME_SIZE.height - 5);
 			this.repaint();
@@ -137,6 +150,10 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 		}
 	}
 
+	/**
+	 * Выводит диалог для выбора файла и сохраняет лог работы программы в этот
+	 * файл.
+	 */
 	private void saveLog() {
 		ExtensionFileFilter filter = new ExtensionFileFilter();
 		filter.addExtension(".txt");
@@ -183,6 +200,9 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 		}
 	}
 
+	/**
+	 * Если лог не был сохранён, выводит подтверждающее диалоговое окно.
+	 */
 	private void exit() {
 		if (this.saved)
 			System.exit(0);
@@ -219,6 +239,9 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 	public void windowOpened(WindowEvent arg0) {
 	}
 
+	/**
+	 * Внутренний класс, отвечающий за ведение журнала работы программы.
+	 */
 	private class Log {
 		public Log() {
 			this.log = new ArrayList<String>();

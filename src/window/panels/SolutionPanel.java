@@ -7,7 +7,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
-import javax.swing.ListModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.TableColumn;
 
@@ -28,11 +27,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.UIManager;
+
 import java.awt.Color;
+import java.awt.Font;
 
 /**
- * Panel contains table with shipping matrix and buttons to save log and quit.
- * Exit without saving invokes confirm dialog window.
+ * Панель содержит таблицу с матрицей перевозок, которая является решением задачи, а также 
+ * кнопки для сохранения лога работы программы и выхода. 
  */
 
 public class SolutionPanel extends JPanel {
@@ -41,7 +42,7 @@ public class SolutionPanel extends JPanel {
 	@SuppressWarnings("unchecked")
 	public SolutionPanel(int mines, int factories) {
 		this.setBounds(0, 0, Const.DEFAULT_FRAME_SIZE.width, 300);
-		ListModel<String> listModel = new CostRowHeader(mines);
+		CostRowHeader listModel = new CostRowHeader(mines);
 		GridBagConstraints gbc_costScroll = new GridBagConstraints();
 		gbc_costScroll.anchor = GridBagConstraints.NORTHWEST;
 		gbc_costScroll.fill = GridBagConstraints.BOTH;
@@ -58,6 +59,7 @@ public class SolutionPanel extends JPanel {
 
 		JLabel label = new JLabel(
 				"\u041C\u0430\u0442\u0440\u0438\u0446\u0430 \u043F\u0435\u0440\u0435\u0432\u043E\u0437\u043E\u043A");
+		label.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		label.setMinimumSize(new Dimension(150, 20));
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.anchor = GridBagConstraints.SOUTH;
@@ -80,13 +82,13 @@ public class SolutionPanel extends JPanel {
 		solutionTable = new JTable();
 		solutionTable.setBackground(Color.WHITE);
 		solutionTable
-				.setToolTipText("<html>\u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442 \u0440\u0430\u0431\u043E\u0442\u044B \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B - \u043C\u0430\u0442\u0440\u0438\u0446\u0430 \u043F\u0435\u0440\u0435\u0432\u043E\u0437\u043E\u043A. <br>\r\n\u0412 \u044F\u0447\u0435\u0439\u043A\u0430\u0445 \u0442\u0430\u0431\u043B\u0438\u0446\u044B \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430, <br>\r\n\u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E \u043F\u0435\u0440\u0435\u0432\u0435\u0437\u0442\u0438 \u043E\u0442 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044F(\u0441\u0442\u0440\u043E\u043A\u0430) \u043A <br>\r\n\u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E(\u0441\u0442\u043E\u043B\u0431\u0435\u0446)</html>");
+				.setToolTipText("<html><font size=\"4\">\u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442 \u0440\u0430\u0431\u043E\u0442\u044B \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B - \u043C\u0430\u0442\u0440\u0438\u0446\u0430 \u043F\u0435\u0440\u0435\u0432\u043E\u0437\u043E\u043A. <br>\r\n\u0412 \u044F\u0447\u0435\u0439\u043A\u0430\u0445 \u0442\u0430\u0431\u043B\u0438\u0446\u044B \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430, <br>\r\n\u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E \u043F\u0435\u0440\u0435\u0432\u0435\u0437\u0442\u0438 \u043E\u0442 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044F(\u0441\u0442\u0440\u043E\u043A\u0430) \u043A <br>\r\n\u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E(\u0441\u0442\u043E\u043B\u0431\u0435\u0446)</font></html>");
 		solutionTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		solutionScroll.setViewportView(solutionTable);
 		solutionTable.setModel(model);
 		JList<String> rowHeader = new JList<String>(listModel);
 		rowHeader
-				.setToolTipText("<html>\u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442 \u0440\u0430\u0431\u043E\u0442\u044B \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B - \u043C\u0430\u0442\u0440\u0438\u0446\u0430 \u043F\u0435\u0440\u0435\u0432\u043E\u0437\u043E\u043A. <br>\r\n\u0412 \u044F\u0447\u0435\u0439\u043A\u0430\u0445 \u0442\u0430\u0431\u043B\u0438\u0446\u044B \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430, <br>\r\n\u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E \u043F\u0435\u0440\u0435\u0432\u0435\u0437\u0442\u0438 \u043E\u0442 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044F(\u0441\u0442\u0440\u043E\u043A\u0430) \u043A <br>\r\n\u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E(\u0441\u0442\u043E\u043B\u0431\u0435\u0446)</html>");
+				.setToolTipText("<html><font size=\"4\">\u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442 \u0440\u0430\u0431\u043E\u0442\u044B \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B - \u043C\u0430\u0442\u0440\u0438\u0446\u0430 \u043F\u0435\u0440\u0435\u0432\u043E\u0437\u043E\u043A. <br>\r\n\u0412 \u044F\u0447\u0435\u0439\u043A\u0430\u0445 \u0442\u0430\u0431\u043B\u0438\u0446\u044B \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430, <br>\r\n\u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E \u043F\u0435\u0440\u0435\u0432\u0435\u0437\u0442\u0438 \u043E\u0442 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044F(\u0441\u0442\u0440\u043E\u043A\u0430) \u043A <br>\r\n\u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E(\u0441\u0442\u043E\u043B\u0431\u0435\u0446)</font></html>");
 		rowHeader.setBackground(UIManager.getColor("Button.background"));
 		rowHeader.setFixedCellWidth(150);
 		rowHeader.setFixedCellHeight(solutionTable.getRowHeight()
@@ -107,15 +109,17 @@ public class SolutionPanel extends JPanel {
 
 		saveButton = new JButton(
 				"\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C");
+		saveButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 		saveButton
-				.setToolTipText("\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u043B\u043E\u0433 \u0440\u0430\u0431\u043E\u0442\u044B \u0432 \u0442\u0435\u043A\u0441\u0442\u043E\u0432\u044B\u0439 \u0444\u0430\u0439\u043B");
+				.setToolTipText("<html><font size=\"4\">\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u043B\u043E\u0433 \u0440\u0430\u0431\u043E\u0442\u044B \u0432 \u0442\u0435\u043A\u0441\u0442\u043E\u0432\u044B\u0439 \u0444\u0430\u0439\u043B</font></html>");
 		saveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel.add(saveButton);
 		Component horizontalStrut = Box.createHorizontalStrut(50);
 		panel.add(horizontalStrut);
 		exitButton = new JButton("\u0412\u044B\u0445\u043E\u0434");
+		exitButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 		exitButton
-				.setToolTipText("\u0412\u044B\u0439\u0442\u0438 \u0438\u0437 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B");
+				.setToolTipText("<html><font size=\"4\">\u0412\u044B\u0439\u0442\u0438 \u0438\u0437 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B</font></html>");
 		exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel.add(exitButton);
 

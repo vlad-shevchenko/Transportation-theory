@@ -7,10 +7,9 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
 /**
- * Table model for cost matrix and shipping matrix. Used in CostTable and
- * SolutionTable. Contains two-dimension Object array for matrix. Column headers
- * named as <Потребитель i>, where i is column serial number. public void
- * setEditable(boolean) used to set cells editability.
+ * TableModel для матрицы стоимости и матрицы перевозок. Используется в
+ * CostTable и SolutionTable. Содержит дву-мерный массив с матрицей. Имена
+ * заголовков: <Потребитель i>, где i - порядковый номер строки.
  */
 
 public class MatrixTableModel implements TableModel {

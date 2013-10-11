@@ -1,8 +1,8 @@
 package window.panels.tables;
 
 /**
- * List model for horizontal header for tables. Exactly repeats
- * AbstractRowHeader, but set caption as <Потребность в товаре>
+ * ListModel для горизонтальных заголовков таблиц. В точности повторяет
+ * AbstractRowHeader, кроме имён заголовка: <Потребность в товаре>
  */
 
 public class FactoryRowHeader extends AbstractRowHeader {

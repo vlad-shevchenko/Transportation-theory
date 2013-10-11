@@ -1,8 +1,8 @@
 package solver;
 
 /**
- * Solving of math model. Takes object of Data; method solve() returns int[][]
- * with necessary shipping
+ * –ешает задачу.  онструктор принимает объект Data, метод solve() возвращает
+ * матрицу перевозок
  */
 
 public class Solver {
@@ -10,11 +10,18 @@ public class Solver {
 		this.data = data;
 	}
 
+	/**
+	 * ћетод дл€ решени€ задачи. »спользуютс€ данные, ранее переданные в
+	 * конструкторе.
+	 * 
+	 * @return матрица перевозок
+	 */
 	public int[][] solve() {
 		int[][] solution = new int[data.getMines().length][data.getFactories().length];
 
 		while (!data.isAllCellsForbidden()) {
-			Pair coords = minCost(); // coords of minimal cost in table
+			Pair coords = minCost(); // координаты €чейки с минимальным зданием
+										// в матрице стоимости
 
 			int dec = minOf(data.getMines()[coords.a],
 					data.getFactories()[coords.b]);
@@ -34,8 +41,10 @@ public class Solver {
 	}
 
 	/**
-	 * @return minimal cost, in table except for the forbidden mines and
-	 *         factories
+	 * “екуща€ минимальна€ стоимость(исключа€ производителей, у которых больше
+	 * нет товара, и потребителей, которым он больше не нужен)
+	 * 
+	 * @return минимальна€ стоимость
 	 */
 	private Pair minCost() {
 		Pair result = new Pair(0, 0);

@@ -23,12 +23,12 @@ import java.awt.SystemColor;
 
 import javax.swing.JButton;
 import javax.swing.UIManager;
+import java.awt.Font;
 
 /**
- * Panel for input of base data: amount of ore in mines, required amount of ore
- * factories(yes, its google-translate...) and cost matrix. Contains tables for
- * input this data and okButton, which check correctness of data and start
- * solving of problem.
+ * Панель с таблицами для ввода основных данных: количества товара у
+ * производителей, количества товара, необходимого потребителям и матрицы
+ * стоимости. Метод checkData() проверяет корректность введённых данных.
  */
 
 public class TablesPanel extends JPanel {
@@ -45,6 +45,7 @@ public class TablesPanel extends JPanel {
 		// "Количество товара у производителей"
 		label = new JLabel(
 				"\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430 \u0443 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u0435\u0439");
+		label.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 		label.setFocusable(false);
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.insets = new Insets(0, 0, 5, 0);
@@ -65,8 +66,9 @@ public class TablesPanel extends JPanel {
 		add(mineScroll, gbc_mineScroll);
 
 		mineTable = new JTable();
+		mineTable.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		mineTable
-				.setToolTipText("\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432 \u044F\u0447\u0435\u0439\u043A\u0438 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430 \u0443 \u043A\u0430\u0436\u0434\u043E\u0433\u043E \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044F");
+				.setToolTipText("<html><font size=\"4\">\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432 \u044F\u0447\u0435\u0439\u043A\u0438 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430 \u0443 \u043A\u0430\u0436\u0434\u043E\u0433\u043E \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044F</font></html>");
 		mineTable.setBackground(SystemColor.textHighlightText);
 		mineScroll.setViewportView(mineTable);
 		mineTable.setModel(new OreTableModel(mines));
@@ -76,7 +78,7 @@ public class TablesPanel extends JPanel {
 		JList<String> mineHeader = new JList<String>(mineListModel);
 		mineHeader.setBackground(UIManager.getColor("Button.background"));
 		mineHeader
-				.setToolTipText("\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432 \u044F\u0447\u0435\u0439\u043A\u0438 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430 \u0443 \u043A\u0430\u0436\u0434\u043E\u0433\u043E \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044F");
+				.setToolTipText("<html><font size=\"4\">\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432 \u044F\u0447\u0435\u0439\u043A\u0438 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430 \u0443 \u043A\u0430\u0436\u0434\u043E\u0433\u043E \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044F</font></html>");
 		mineHeader.setFocusable(false);
 		mineHeader.setFixedCellWidth(150);
 		mineHeader.setFixedCellHeight(mineTable.getRowHeight()
@@ -87,6 +89,7 @@ public class TablesPanel extends JPanel {
 		// "Количество товара, необходимого потребителям"
 		label_1 = new JLabel(
 				"\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430, \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E\u0433\u043E \u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044F\u043C");
+		label_1.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 		label_1.setFocusable(false);
 		GridBagConstraints gbc_label_1 = new GridBagConstraints();
 		gbc_label_1.insets = new Insets(0, 0, 5, 0);
@@ -107,8 +110,9 @@ public class TablesPanel extends JPanel {
 		add(factoryScroll, gbc_factoryScroll);
 
 		factoryTable = new JTable();
+		factoryTable.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		factoryTable
-				.setToolTipText("\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432 \u044F\u0447\u0435\u0439\u043A\u0438 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430, \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E\u0433\u043E \u043A\u0430\u0436\u0434\u043E\u043C\u0443 \u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E");
+				.setToolTipText("<html><font size=\"4\">\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432 \u044F\u0447\u0435\u0439\u043A\u0438 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430, \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E\u0433\u043E \u043A\u0430\u0436\u0434\u043E\u043C\u0443 \u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E</font></html>");
 		factoryScroll.setViewportView(factoryTable);
 		factoryTable.setModel(new OreTableModel(factories));
 		factoryTable.setCellSelectionEnabled(true);
@@ -116,7 +120,7 @@ public class TablesPanel extends JPanel {
 		JList<String> factoryHeader = new JList<String>(factoryListModel);
 		factoryHeader.setBackground(UIManager.getColor("Button.background"));
 		factoryHeader
-				.setToolTipText("\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432 \u044F\u0447\u0435\u0439\u043A\u0438 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430, \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E\u0433\u043E \u043A\u0430\u0436\u0434\u043E\u043C\u0443 \u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E");
+				.setToolTipText("<html><font size=\"4\">\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432 \u044F\u0447\u0435\u0439\u043A\u0438 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430, \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E\u0433\u043E \u043A\u0430\u0436\u0434\u043E\u043C\u0443 \u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E</font></html>");
 		factoryHeader.setFocusable(false);
 		factoryHeader.setFixedCellWidth(150);
 		factoryHeader.setFixedCellHeight(factoryTable.getRowHeight()
@@ -127,6 +131,7 @@ public class TablesPanel extends JPanel {
 
 		label_2 = new JLabel(
 				"\u041C\u0430\u0442\u0440\u0438\u0446\u0430 \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u0438");
+		label_2.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 		label_2.setFocusable(false);
 		GridBagConstraints gbc_label_2 = new GridBagConstraints();
 		gbc_label_2.insets = new Insets(0, 0, 5, 0);
@@ -149,8 +154,9 @@ public class TablesPanel extends JPanel {
 		add(costScroll, gbc_costScroll);
 
 		costTable = new JTable();
+		costTable.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		costTable
-				.setToolTipText("<html>\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432 \u043C\u0430\u0442\u0440\u0438\u0446\u0443 \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C \u0434\u043E\u0441\u0442\u0430\u0432\u043A\u0438 \u0435\u0434\u0438\u043D\u0438\u0446\u044B \u0442\u043E\u0432\u0430\u0440\u0430 \u043E\u0442 <br>\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u043D\u043E\u0433\u043E \u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044F(\u0443\u043A\u0430\u0437\u0430\u043D \u0432 \u0433\u043E\u0440\u0438\u0437\u043E\u043D\u0442\u0430\u043B\u044C\u043D\u043E\u043C \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0435) <br>\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u043D\u043E\u043C\u0443 \r\n\u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E(\u0443\u043A\u0430\u0437\u0430\u043D \u0432 \u0432\u0435\u0440\u0442\u0438\u043A\u0430\u043B\u044C\u043D\u043E\u043C \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0435)</html>");
+				.setToolTipText("<html><font size=\"4\">\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432 \u043C\u0430\u0442\u0440\u0438\u0446\u0443 \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C \u0434\u043E\u0441\u0442\u0430\u0432\u043A\u0438 \u0435\u0434\u0438\u043D\u0438\u0446\u044B \u0442\u043E\u0432\u0430\u0440\u0430 <br> \r\n\u043E\u0442 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044F(\u0443\u043A\u0430\u0437\u0430\u043D \u0432 \u0433\u043E\u0440\u0438\u0437\u043E\u043D\u0442\u0430\u043B\u044C\u043D\u043E\u043C \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0435) <br>\r\n\u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E(\u0443\u043A\u0430\u0437\u0430\u043D \u0432 \u0432\u0435\u0440\u0442\u0438\u043A\u0430\u043B\u044C\u043D\u043E\u043C \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0435)</font></html>");
 		costTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		costScroll.setViewportView(costTable);
 		MatrixTableModel costModel = new MatrixTableModel(mines, factories);
@@ -160,7 +166,7 @@ public class TablesPanel extends JPanel {
 		JList<String> costHeader = new JList<String>(costListModel);
 		costHeader.setBackground(UIManager.getColor("Button.background"));
 		costHeader
-				.setToolTipText("<html>\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432 \u043C\u0430\u0442\u0440\u0438\u0446\u0443 \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C \u0434\u043E\u0441\u0442\u0430\u0432\u043A\u0438 \u0435\u0434\u0438\u043D\u0438\u0446\u044B \u0442\u043E\u0432\u0430\u0440\u0430 \u043E\u0442 <br>\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u043D\u043E\u0433\u043E \u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044F(\u0443\u043A\u0430\u0437\u0430\u043D \u0432 \u0433\u043E\u0440\u0438\u0437\u043E\u043D\u0442\u0430\u043B\u044C\u043D\u043E\u043C \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0435) <br>\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u043D\u043E\u043C\u0443 \r\n\u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E(\u0443\u043A\u0430\u0437\u0430\u043D \u0432 \u0432\u0435\u0440\u0442\u0438\u043A\u0430\u043B\u044C\u043D\u043E\u043C \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0435)</html>");
+				.setToolTipText("<html><font size=\"4\">\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0432 \u043C\u0430\u0442\u0440\u0438\u0446\u0443 \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C \u0434\u043E\u0441\u0442\u0430\u0432\u043A\u0438 \u0435\u0434\u0438\u043D\u0438\u0446\u044B \u0442\u043E\u0432\u0430\u0440\u0430 <br> \r\n\u043E\u0442 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044F(\u0443\u043A\u0430\u0437\u0430\u043D \u0432 \u0433\u043E\u0440\u0438\u0437\u043E\u043D\u0442\u0430\u043B\u044C\u043D\u043E\u043C \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0435) <br>\r\n\u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E(\u0443\u043A\u0430\u0437\u0430\u043D \u0432 \u0432\u0435\u0440\u0442\u0438\u043A\u0430\u043B\u044C\u043D\u043E\u043C \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0435)</font></html>");
 		costHeader.setFocusable(false);
 		costHeader.setFixedCellWidth(150);
 		costHeader.setFixedCellHeight(costTable.getRowHeight()
@@ -169,7 +175,7 @@ public class TablesPanel extends JPanel {
 		costScroll.setRowHeaderView(costHeader);
 
 		gridBagLayout.columnWidths = new int[] { 605 };
-		gridBagLayout.rowHeights = new int[] { 20, 80, 20, 80, 20, 150, 30 };
+		gridBagLayout.rowHeights = new int[] { 30, 65, 30, 65, 20, 150, 40 };
 		gridBagLayout.columnWeights = new double[] { 0.0 };
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0 };
@@ -177,7 +183,8 @@ public class TablesPanel extends JPanel {
 		// "Посчитать"
 		okButton = new JButton(
 				"\u041F\u043E\u0441\u0447\u0438\u0442\u0430\u0442\u044C");
-		okButton.setToolTipText("\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044C \u0432\u0432\u043E\u0434 \u0434\u0430\u043D\u043D\u044B\u0445 \u0438 \u0440\u0435\u0448\u0438\u0442\u044C \u0437\u0430\u0434\u0430\u0447\u0443");
+		okButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
+		okButton.setToolTipText("<html><font size=\"4\">\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044C \u0432\u0432\u043E\u0434 \u0434\u0430\u043D\u043D\u044B\u0445 \u0438 \u0440\u0435\u0448\u0438\u0442\u044C \u0437\u0430\u0434\u0430\u0447\u0443</font></html>");
 		GridBagConstraints tablesOkButton = new GridBagConstraints();
 		tablesOkButton.gridx = 0;
 		tablesOkButton.gridy = 6;
@@ -249,10 +256,10 @@ public class TablesPanel extends JPanel {
 	}
 
 	/**
-	 * Check data in tables and returns error code. All codes -
-	 * "public static int" fields of Const.java
+	 * Проверяет данные в полях ввода и возвращает код ошибки. 0 - данные
+	 * валидны, в остальных случаях - код соответствующей ошибки из Const.
 	 * 
-	 * @return error code
+	 * @return код ошибки
 	 */
 	public int checkData() {
 		int mineSum = 0;

@@ -3,11 +3,11 @@ package window.panels.tables;
 import javax.swing.AbstractListModel;
 
 /**
- * Abstract class for horizontal headers for all tables.
+ * Абстрактный класс для реализации горизонтальных заголовков таблиц.
  */
 
 public abstract class AbstractRowHeader extends AbstractListModel<String> {
-	private static final long serialVersionUID = 7691329489834665617L;
+	private static final long serialVersionUID = 1L;
 
 	public AbstractRowHeader(int size) {
 		this.size = size;

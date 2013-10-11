@@ -7,9 +7,10 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
 /**
- * Table model for MineTable and FactoryTable. Contains one-dimensional Object
- * array(rather, Object[1][] - its required by interface) of table data. Column
- * header is its serial number. Any cell is editable.
+ * TableModel для MineTable и FactoryTable. Содержит одномерный
+ * массив(имитирующий двумерный - необходимо для корректной реализации
+ * интерфейса) данных таблицы. Имена заголовков - их порядковые номера. Все
+ * ячейки редактируемые.
  */
 
 public class OreTableModel implements TableModel {

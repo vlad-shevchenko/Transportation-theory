@@ -1,8 +1,8 @@
 package solver;
 
 /**
- * Class encapsulates two numbers(coords) to make possible it's returning from
- * method
+ *  ласс, инкапсулирующий два числа(координаты); нужен, чтобы иметь возможность
+ * возвращать из методы пару чисел. ¬елосипед
  */
 
 public class Pair {

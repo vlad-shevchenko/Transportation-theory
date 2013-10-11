@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import javax.swing.filechooser.FileFilter;
 
 /**
- * File filter, used in open/save dialog window to filter displayed files.
+ * Фильтр файлов, используемый в диалоговом окне для фильтрации отображаемых
+ * файлов.
  */
 
 public class ExtensionFileFilter extends FileFilter {
-
 	public void addExtension(String ext) {
 		if (!ext.startsWith("."))
 			extensions.add("." + ext);

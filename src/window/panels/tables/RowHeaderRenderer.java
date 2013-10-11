@@ -5,7 +5,8 @@ import javax.swing.*;
 import javax.swing.table.*;
 
 /**
- * RowHeaderRenderer renders row headers. K.O.
+ * RowHeaderRenderer renders row headers. K.O. 
+ * Отрисовывает горизонтальные заголовки.
  */
 
 @SuppressWarnings("rawtypes")
