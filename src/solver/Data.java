@@ -1,13 +1,14 @@
 package solver;
 
 /**
- * Class for encapsulation of data for Solver
+ *  ласс, инкапсулирующий данные дл€ Solver.
  * 
- * Contains array of proposals of mines, consumption of factories and
- * two-dimensional array of costs of transport from i-mine to j-factory
+ * —одержит массив с количеством товара у производителей, потребност€ми
+ * потребителей(...) и двумерный массив со стоимостью перевозки единицы товара
+ * от i-ого производител€ j-ому потребителю.
  * 
- * Also contains arrays of mines/factories witch can to ship/consume ore and
- * provides methods for word with this arrays
+ * “акже содержит список производителей/потребителей, который могут
+ * поставл€ть/получать товар и предоставл€ет методы дл€ работы с этими данными.
  */
 
 public class Data {
@@ -42,7 +43,10 @@ public class Data {
 	}
 
 	/**
-	 * @return is sum of mines proposals equal to sum of factories consumptions
+	 * ѕровер€ет корректность введЄнных данных
+	 * 
+	 * @return равна ли сумма товара у производителей сумме товара, необходимого
+	 *         потребител€м
 	 */
 	public boolean isDataValid() {
 		int minesSum = 0;
