@@ -12,6 +12,7 @@ import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -47,7 +48,7 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 		this.addWindowListener(this);
 		this.saved = true;
 
-		this.setBounds(100, 100, 0, 0);
+		this.setBounds(200, 200, 0, 0);
 		this.setMinimumSize(Const.START_FRAME_SIZE);
 		this.setMaximumSize(Const.DEFAULT_FRAME_SIZE);
 		this.setSize(Const.START_FRAME_SIZE);
@@ -56,6 +57,7 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 
 		settingsPanel = new SettingsPanel();
 		settingsPanel.getOkButton().addActionListener(this);
+		settingsPanel.getHelpButton().addActionListener(this);
 		rootPanel.add(settingsPanel);
 
 		this.add(rootPanel);
@@ -141,6 +143,11 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 			this.setSize(Const.DEFAULT_FRAME_SIZE.width - 5,
 					Const.DEFAULT_FRAME_SIZE.height - 5);
 			this.repaint();
+		} else if (((JButton) ev.getSource()).getText().equals("")) {
+			// SettingsPanel -> helpButton -> Click
+			JOptionPane.showMessageDialog(this, helpMessage, "Справка",
+					JOptionPane.OK_OPTION, new ImageIcon(Toolkit
+							.getDefaultToolkit().getImage("help.png")));
 		} else if (((JButton) ev.getSource()).getText().equals("Сохранить")) {
 			// SolutionPanel -> saveButton -> Click
 			saveLog();
@@ -305,4 +312,5 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 			"Неверные данные. Проверьте поля для ввода",
 			"Сумма товаров у производителей и сумма товаров, необходимых потребителям должны быть равны",
 			"Количество производителей и потребителей должно быть не меньше двух" };
+	private String helpMessage = "<html><b>Транспортная задача</b> это математическая проблема. <br>В простейшей формулировке выглядит так: <br><br><i>Есть <b>n</b> поставщиков, каждый из которых имеет некоторое количество <br>однородного товара и <b>m</b> потребителей, которым нужно доставить этот товар.<br>Необходимо найти оптимальный способ удовлетворить спрос всех потребителей<br>с минимальными затратами на перевозку.<br></i><br>Основные термины:<ul><li><b>Матрица стоимости</b> - двумерная матрица, которая определяет стоимость<br>перевозки единицы товара от некоторого производителя к некоторому потребителю.<li><b>Матрица перевозок</b> - матрица, в ячейках которой указано количество<br>товара, который необходимо перевезти от производителя к потребителю.</ul>Суммарный объем предложения должен быть равен суммарному спросу, иначе задача<br>называется несбалансированной и не решается(без специального преобразования).<br></html>";
 }
