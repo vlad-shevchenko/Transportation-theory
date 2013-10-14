@@ -144,7 +144,7 @@ public class SolutionPanel extends JPanel {
 		panel.setMaximumSize(panel.getPreferredSize());
 	}
 
-	public void setTableData(int[][] data) {
+	public void setTableData(Integer[][] data) {
 		for (int i = 0; i < data.length; ++i) {
 			for (int j = 0; j < data[0].length; ++j) {
 				this.solutionTable.setValueAt(data[i][j], i, j);

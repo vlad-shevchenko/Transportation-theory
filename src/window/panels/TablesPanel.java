@@ -238,17 +238,17 @@ public class TablesPanel extends JPanel {
 		return result;
 	}
 
-	public int[][] getCostArray() {
-		int[][] result = new int[costTable.getRowCount()][costTable
+	public Integer[][] getCostArray() {
+		Integer[][] result = new Integer[costTable.getRowCount()][costTable
 				.getColumnCount()];
 
 		for (int i = 0; i < costTable.getRowCount(); ++i) {
 			for (int j = 0; j < costTable.getColumnCount(); ++j) {
-				try {
-					result[i][j] = (Integer) costTable.getValueAt(i, j);
-				} catch (Exception e) {
-					result[i][j] = 0;
-				}
+				Object value = costTable.getValueAt(i, j);
+				if(value == null)
+					result[i][j] = null;
+				else
+					result[i][j] = Integer.parseInt((String) value);
 			}
 		}
 
@@ -267,7 +267,7 @@ public class TablesPanel extends JPanel {
 
 		int[] mineArray = getMineArray();
 		int[] factoryArray = getFactoryArray();
-		int[][] costArray = getCostArray();
+		Integer[][] costArray = getCostArray();
 
 		for (int i = 0; i < mineArray.length; ++i) {
 			if (mineArray[i] < 0)
@@ -290,10 +290,12 @@ public class TablesPanel extends JPanel {
 
 		for (int i = 0; i < costArray.length; ++i) {
 			for (int j = 0; j < costArray[0].length; ++j) {
-				if (costArray[i][j] < 0)
-					return Const.INCORRECT_DATA;
-				else if (costArray[i][j] == 0)
-					return Const.NOT_ENOGHT_DATA;
+				if (costArray[i][j] != null){
+					if (costArray[i][j] < 0)
+						return Const.INCORRECT_DATA;
+					else if (costArray[i][j] == 0)
+						return Const.NOT_ENOGHT_DATA;
+				}
 			}
 		}
 

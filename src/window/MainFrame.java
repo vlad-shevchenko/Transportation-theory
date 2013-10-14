@@ -126,7 +126,7 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 
 			this.log.addItem(GregorianCalendar.getInstance().getTimeInMillis(),
 					"Start the calculation of the optimal transport matrix");
-			int[][] solution = solver.solve();
+			Integer[][] solution = solver.solve();
 			this.log.addTable(solution, GregorianCalendar.getInstance()
 					.getTimeInMillis(),
 					"The end the calculation of the optimal transport matrix");
@@ -269,8 +269,7 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 			for (int i = 0; i < data.length; ++i) {
 				curLine = new String("|");
 				for (int j = 0; j < data[i].length; ++j) {
-					curLine += fillString(" ", 10 - String.valueOf(data[i][j])
-							.length())
+					curLine += fillString(" ", 10 - String.valueOf(data[i][j]).length())
 							+ data[i][j] + "|";
 				}
 				this.log.add(fillString("-", curLine.length()) + "\n");
@@ -278,6 +277,21 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 			}
 
 			this.log.add(fillString("-", curLine.length()) + "\n");
+		}
+		
+		public void addTable(Integer[][] data, long time, String message) {
+			int[][] newData = new int[data.length][data[0].length];
+			
+			for(int i = 0; i < data.length; ++i) {
+				for(int j = 0; j < data[0].length; ++j) {
+					if(data[i][j] == null)
+						newData[i][j] = 0;
+					else
+						newData[i][j] = data[i][j];
+				}
+			}
+			
+			addTable(newData, time, message);
 		}
 
 		public String nextLine() {

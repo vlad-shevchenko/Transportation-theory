@@ -26,7 +26,8 @@ public class MatrixTableModel implements TableModel {
 	}
 
 	public Class<?> getColumnClass(int columnIndex) {
-		return Integer.class;
+//		return Integer.class;
+		return Object.class;
 	}
 
 	public int getColumnCount() {

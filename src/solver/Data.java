@@ -12,10 +12,10 @@ package solver;
  */
 
 public class Data {
-	public Data(int[] mines, int[] factories, int[][] cost) {
+	public Data(int[] mines, int[] factories, Integer[][] cost) {
 		this.mines = new int[mines.length];
 		this.factories = new int[factories.length];
-		this.cost = new int[mines.length][factories.length];
+		this.cost = new Integer[mines.length][factories.length];
 		this.correctMines = new boolean[mines.length];
 		this.correctFactories = new boolean[factories.length];
 
@@ -63,16 +63,19 @@ public class Data {
 	}
 
 	public boolean isAllCellsForbidden() {
+		boolean mineResult = true;
+		boolean factoryResult = true;
+		
 		for (int i = 0; i < correctMines.length; ++i) {
 			if (correctMines[i] == true)
-				return false;
+				mineResult = false;
 		}
 		for (int i = 0; i < correctFactories.length; ++i) {
 			if (correctFactories[i] == true)
-				return false;
+				factoryResult = false;
 		}
 
-		return true;
+		return (mineResult || factoryResult);
 	}
 
 	public void decMineProposal(int mine, int number) {
@@ -107,7 +110,7 @@ public class Data {
 		return this.factories;
 	}
 
-	public int[][] getCost() {
+	public Integer[][] getCost() {
 		return this.cost;
 	}
 
@@ -115,5 +118,5 @@ public class Data {
 	private boolean[] correctFactories;
 	private int[] mines;
 	private int[] factories;
-	private int[][] cost;
+	private Integer[][] cost;
 }
