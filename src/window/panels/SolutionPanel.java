@@ -7,7 +7,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.table.TableColumn;
 
 import start.Const;
@@ -26,8 +25,6 @@ import java.awt.Component;
 import java.awt.event.ActionListener;
 
 import javax.swing.Box;
-import javax.swing.UIManager;
-
 import java.awt.Color;
 import java.awt.Font;
 
@@ -41,6 +38,7 @@ public class SolutionPanel extends JPanel {
 
 	@SuppressWarnings("unchecked")
 	public SolutionPanel(int mines, int factories) {
+		setBackground(new Color(176, 224, 230));
 		this.setBounds(0, 0, Const.DEFAULT_FRAME_SIZE.width, 300);
 		CostRowHeader listModel = new CostRowHeader(mines);
 		GridBagConstraints gbc_costScroll = new GridBagConstraints();
@@ -69,10 +67,9 @@ public class SolutionPanel extends JPanel {
 		add(label, gbc_label);
 
 		JScrollPane solutionScroll = new JScrollPane();
+		solutionScroll.setOpaque(false);
 		solutionScroll.setToolTipText("");
 		label.setLabelFor(solutionScroll);
-		solutionScroll
-				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		GridBagConstraints gbc_solutionScroll = new GridBagConstraints();
 		gbc_solutionScroll.anchor = GridBagConstraints.NORTH;
 		gbc_solutionScroll.gridx = 0;
@@ -80,23 +77,28 @@ public class SolutionPanel extends JPanel {
 		add(solutionScroll, gbc_solutionScroll);
 
 		solutionTable = new JTable();
-		solutionTable.setBackground(Color.WHITE);
+		solutionTable.getTableHeader().setBackground(new Color(176, 224, 230));
+		solutionTable.getTableHeader().setFont(new Font("Comic Sans MS", Font.PLAIN, 12));;
+		solutionTable.setBackground(new Color(176, 224, 230));
 		solutionTable
 				.setToolTipText("<html><font size=\"4\">\u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442 \u0440\u0430\u0431\u043E\u0442\u044B \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B - \u043C\u0430\u0442\u0440\u0438\u0446\u0430 \u043F\u0435\u0440\u0435\u0432\u043E\u0437\u043E\u043A. <br>\r\n\u0412 \u044F\u0447\u0435\u0439\u043A\u0430\u0445 \u0442\u0430\u0431\u043B\u0438\u0446\u044B \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430, <br>\r\n\u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E \u043F\u0435\u0440\u0435\u0432\u0435\u0437\u0442\u0438 \u043E\u0442 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044F(\u0441\u0442\u0440\u043E\u043A\u0430) \u043A <br>\r\n\u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E(\u0441\u0442\u043E\u043B\u0431\u0435\u0446)</font></html>");
 		solutionTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		solutionScroll.setViewportView(solutionTable);
+		solutionScroll.getViewport().setOpaque(false);
 		solutionTable.setModel(model);
 		JList<String> rowHeader = new JList<String>(listModel);
 		rowHeader
 				.setToolTipText("<html><font size=\"4\">\u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442 \u0440\u0430\u0431\u043E\u0442\u044B \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B - \u043C\u0430\u0442\u0440\u0438\u0446\u0430 \u043F\u0435\u0440\u0435\u0432\u043E\u0437\u043E\u043A. <br>\r\n\u0412 \u044F\u0447\u0435\u0439\u043A\u0430\u0445 \u0442\u0430\u0431\u043B\u0438\u0446\u044B \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430, <br>\r\n\u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E \u043F\u0435\u0440\u0435\u0432\u0435\u0437\u0442\u0438 \u043E\u0442 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044F(\u0441\u0442\u0440\u043E\u043A\u0430) \u043A <br>\r\n\u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044E(\u0441\u0442\u043E\u043B\u0431\u0435\u0446)</font></html>");
-		rowHeader.setBackground(UIManager.getColor("Button.background"));
+		rowHeader.setBackground(new Color(176, 224, 230));
 		rowHeader.setFixedCellWidth(150);
 		rowHeader.setFixedCellHeight(solutionTable.getRowHeight()
 				+ solutionTable.getRowMargin() - 1);
 		rowHeader.setCellRenderer(new RowHeaderRenderer(solutionTable));
 		solutionScroll.setRowHeaderView(rowHeader);
+		solutionScroll.getRowHeader().getView().setBackground(new Color(176, 224, 230));
 
 		JPanel panel = new JPanel();
+		panel.setOpaque(false);
 		panel.setPreferredSize(new Dimension(0, 0));
 		panel.setMinimumSize(new Dimension(0, 0));
 		GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -109,6 +111,8 @@ public class SolutionPanel extends JPanel {
 
 		saveButton = new JButton(
 				"\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C");
+		saveButton.setForeground(new Color(250, 250, 210));
+		saveButton.setBackground(new Color(102, 205, 170));
 		saveButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 		saveButton
 				.setToolTipText("<html><font size=\"4\">\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u043B\u043E\u0433 \u0440\u0430\u0431\u043E\u0442\u044B \u0432 \u0442\u0435\u043A\u0441\u0442\u043E\u0432\u044B\u0439 \u0444\u0430\u0439\u043B</font></html>");
@@ -117,6 +121,8 @@ public class SolutionPanel extends JPanel {
 		Component horizontalStrut = Box.createHorizontalStrut(50);
 		panel.add(horizontalStrut);
 		exitButton = new JButton("\u0412\u044B\u0445\u043E\u0434");
+		exitButton.setForeground(new Color(250, 250, 210));
+		exitButton.setBackground(new Color(102, 205, 170));
 		exitButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 		exitButton
 				.setToolTipText("<html><font size=\"4\">\u0412\u044B\u0439\u0442\u0438 \u0438\u0437 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B</font></html>");

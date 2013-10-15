@@ -16,6 +16,7 @@ public class RowHeaderRenderer extends JLabel implements ListCellRenderer {
 	public RowHeaderRenderer(JTable table) {
 		JTableHeader header = table.getTableHeader();
 		setOpaque(true);
+		setFocusable(false);
 		setBorder(UIManager.getBorder("TableHeader.cellBorder"));
 		setHorizontalAlignment(CENTER);
 		setForeground(header.getForeground());

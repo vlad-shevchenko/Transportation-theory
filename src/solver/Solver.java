@@ -1,7 +1,4 @@
 package solver;
-
-import java.util.ArrayList;
-
 /**
  * Решает задачу. Конструктор принимает объект Data, метод solve() возвращает
  * матрицу перевозок

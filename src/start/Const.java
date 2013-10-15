@@ -9,7 +9,7 @@ import java.awt.Dimension;
 public class Const {
 	// Размеры окна
 	public static Dimension START_FRAME_SIZE = new Dimension(350, 200);
-	public static Dimension DEFAULT_FRAME_SIZE = new Dimension(600, 450);
+	public static Dimension DEFAULT_FRAME_SIZE = new Dimension(610, 450);
 	public static Dimension MIN_FRAME_SIZE = new Dimension(400, 450);
 	public static Dimension MAX_FRAME_SIZE = new Dimension(800, 600);
 

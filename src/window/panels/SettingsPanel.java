@@ -16,6 +16,9 @@ import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Dimension;
+import java.awt.Color;
+import javax.swing.DebugGraphics;
+import java.awt.event.KeyEvent;
 
 /**
  * Панель с двумя JTextField'ами для ввода количества производителей и
@@ -27,9 +30,12 @@ public class SettingsPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	public SettingsPanel() {
+		setBackground(new Color(176, 224, 230));
 
 		JPanel mineInputPanel = new JPanel();
+		mineInputPanel.setOpaque(false);
 		JPanel factoryInputPanel = new JPanel();
+		factoryInputPanel.setOpaque(false);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		add(mineInputPanel);
@@ -42,6 +48,7 @@ public class SettingsPanel extends JPanel {
 		mineInputPanel.add(mineLabel);
 
 		mineTextField = new JTextField();
+		mineTextField.setBackground(new Color(204, 255, 204));
 		mineTextField.setHorizontalAlignment(SwingConstants.RIGHT);
 		mineTextField
 				.setToolTipText("<html><font size=\"4\">\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u0435\u0439</font></html");
@@ -59,6 +66,7 @@ public class SettingsPanel extends JPanel {
 		factoryInputPanel.add(factoryLabel, BorderLayout.WEST);
 
 		factoryTextField = new JTextField();
+		factoryTextField.setBackground(new Color(204, 255, 204));
 		factoryTextField.setHorizontalAlignment(SwingConstants.RIGHT);
 		factoryTextField
 				.setToolTipText("<html><font size=\"4\">\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u0435\u0439</font></html>");
@@ -73,6 +81,7 @@ public class SettingsPanel extends JPanel {
 		add(verticalGlue_1);
 
 		JPanel okPanel = new JPanel();
+		okPanel.setOpaque(false);
 		add(okPanel);
 		okPanel.setLayout(new BoxLayout(okPanel, BoxLayout.X_AXIS));
 
@@ -85,6 +94,10 @@ public class SettingsPanel extends JPanel {
 		okPanel.add(horizontalGlue);
 
 		okButton = new JButton("Ok");
+		okButton.setMnemonic(KeyEvent.VK_ENTER);
+		okButton.setDebugGraphicsOptions(DebugGraphics.NONE_OPTION);
+		okButton.setForeground(new Color(250, 250, 210));
+		okButton.setBackground(new Color(102, 205, 170));
 		okButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		okButton.setToolTipText("<html><font size=\"4\">\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044C \u0432\u0432\u043E\u0434</font></html>");
 		okPanel.add(okButton);
@@ -92,6 +105,10 @@ public class SettingsPanel extends JPanel {
 		Component horizontalGlue_1 = Box.createHorizontalGlue();
 		okPanel.add(horizontalGlue_1);
 		helpButton = new JButton("");
+		helpButton.setMnemonic(KeyEvent.VK_H);
+		helpButton.setIconTextGap(0);
+		helpButton.setForeground(new Color(250, 250, 210));
+		helpButton.setBackground(new Color(102, 205, 170));
 		helpButton
 				.setToolTipText("<html><font size=\"4\">\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0441\u043F\u0440\u0430\u0432\u043A\u0443 \u043F\u043E \u0442\u0440\u0430\u043D\u0441\u043F\u043E\u0440\u0442\u043D\u043E\u0439 \u0437\u0430\u0434\u0430\u0447\u0435</font></html>");
 		helpButton.setIcon(buttonIcon);
