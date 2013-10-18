@@ -12,10 +12,10 @@ package solver;
  */
 
 public class Data {
-	public Data(int[] mines, int[] factories, Integer[][] cost) {
+	public Data(int[] mines, int[] factories, int[][] cost) {
 		this.mines = new int[mines.length];
 		this.factories = new int[factories.length];
-		this.cost = new Integer[mines.length][factories.length];
+		this.cost = new int[mines.length][factories.length];
 		this.correctMines = new boolean[mines.length];
 		this.correctFactories = new boolean[factories.length];
 
@@ -33,12 +33,6 @@ public class Data {
 
 		for (int i = 0; i < factories.length; ++i) {
 			this.factories[i] = factories[i];
-		}
-
-		for (int i = 0; i < cost.length; ++i) {
-			for (int j = 0; j < cost[0].length; ++j) {
-				this.cost[i][j] = cost[i][j];
-			}
 		}
 	}
 
@@ -110,7 +104,7 @@ public class Data {
 		return this.factories;
 	}
 
-	public Integer[][] getCost() {
+	public int[][] getCost() {
 		return this.cost;
 	}
 
@@ -118,5 +112,5 @@ public class Data {
 	private boolean[] correctFactories;
 	private int[] mines;
 	private int[] factories;
-	private Integer[][] cost;
+	private int[][] cost;
 }

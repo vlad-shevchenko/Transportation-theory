@@ -8,7 +8,7 @@ import javax.swing.table.TableModel;
 
 /**
  * TableModel для матрицы стоимости и матрицы перевозок. Используется в
- * CostTable и SolutionTable. Содержит дву-мерный массив с матрицей. Имена
+ * CostTable и SolutionTable. Содержит двумерный массив с матрицей. Имена
  * заголовков: <Потребитель i>, где i - порядковый номер строки.
  */
 
@@ -26,8 +26,7 @@ public class MatrixTableModel implements TableModel {
 	}
 
 	public Class<?> getColumnClass(int columnIndex) {
-//		return Integer.class;
-		return Object.class;
+		return Integer.class;
 	}
 
 	public int getColumnCount() {

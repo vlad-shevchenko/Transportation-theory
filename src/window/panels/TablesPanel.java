@@ -19,9 +19,14 @@ import start.Const;
 import window.panels.tables.*;
 
 import javax.swing.JButton;
+
 import java.awt.Font;
 import java.awt.Color;
+
 import javax.swing.DebugGraphics;
+import javax.swing.BoxLayout;
+import java.awt.Component;
+import javax.swing.Box;
 
 /**
  * Панель с таблицами для ввода основных данных: количества товара у
@@ -209,18 +214,37 @@ public class TablesPanel extends JPanel {
 		gridBagLayout.columnWeights = new double[] { 0.0 };
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0 };
+		
+		panel = new JPanel();
+		panel.setOpaque(false);
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.gridx = 0;
+		gbc_panel.gridy = 6;
+		add(panel, gbc_panel);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		
+		horizontalGlue = Box.createHorizontalGlue();
+		panel.add(horizontalGlue);
+		
+		backButton = new JButton("\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438");
+		backButton.setToolTipText("<html><font size=\"4\">\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044C \u0432\u0432\u043E\u0434 \u0434\u0430\u043D\u043D\u044B\u0445 \u0438 \u0440\u0435\u0448\u0438\u0442\u044C \u0437\u0430\u0434\u0430\u0447\u0443</font></html>");
+		backButton.setForeground(new Color(250, 250, 210));
+		backButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
+		backButton.setBackground(new Color(102, 205, 170));
+		panel.add(backButton);
 
 		// "Посчитать"
 		okButton = new JButton(
 				"\u041F\u043E\u0441\u0447\u0438\u0442\u0430\u0442\u044C");
+		panel.add(okButton);
 		okButton.setForeground(new Color(250, 250, 210));
 		okButton.setBackground(new Color(102, 205, 170));
 		okButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		okButton.setToolTipText("<html><font size=\"4\">\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044C \u0432\u0432\u043E\u0434 \u0434\u0430\u043D\u043D\u044B\u0445 \u0438 \u0440\u0435\u0448\u0438\u0442\u044C \u0437\u0430\u0434\u0430\u0447\u0443</font></html>");
-		GridBagConstraints tablesOkButton = new GridBagConstraints();
-		tablesOkButton.gridx = 0;
-		tablesOkButton.gridy = 6;
-		add(okButton, tablesOkButton);
+		
+		horizontalGlue_1 = Box.createHorizontalGlue();
+		panel.add(horizontalGlue_1);
 
 		for (int i = 0; i < mineTable.getColumnCount(); ++i) {
 			TableColumn column = mineTable.getColumnModel().getColumn(i);
@@ -270,17 +294,17 @@ public class TablesPanel extends JPanel {
 		return result;
 	}
 
-	public Integer[][] getCostArray() {
-		Integer[][] result = new Integer[costTable.getRowCount()][costTable
+	public int[][] getCostArray() {
+		int[][] result = new int[costTable.getRowCount()][costTable
 				.getColumnCount()];
 
 		for (int i = 0; i < costTable.getRowCount(); ++i) {
 			for (int j = 0; j < costTable.getColumnCount(); ++j) {
 				Object value = costTable.getValueAt(i, j);
 				if(value == null)
-					result[i][j] = null;
+					result[i][j] = 0;
 				else
-					result[i][j] = Integer.parseInt((String) value);
+					result[i][j] = (Integer) costTable.getValueAt(i, j);
 			}
 		}
 
@@ -299,7 +323,7 @@ public class TablesPanel extends JPanel {
 
 		int[] mineArray = getMineArray();
 		int[] factoryArray = getFactoryArray();
-		Integer[][] costArray = getCostArray();
+		int[][] costArray = getCostArray();
 
 		for (int i = 0; i < mineArray.length; ++i) {
 			if (mineArray[i] < 0)
@@ -322,12 +346,10 @@ public class TablesPanel extends JPanel {
 
 		for (int i = 0; i < costArray.length; ++i) {
 			for (int j = 0; j < costArray[0].length; ++j) {
-				if (costArray[i][j] != null){
-					if (costArray[i][j] < 0)
-						return Const.INCORRECT_DATA;
-					else if (costArray[i][j] == 0)
-						return Const.NOT_ENOGHT_DATA;
-				}
+				if (costArray[i][j] == 0)
+					return Const.NOT_ENOGHT_DATA;
+				else if (costArray[i][j] < 0)
+					return Const.INCORRECT_DATA;
 			}
 		}
 
@@ -336,6 +358,10 @@ public class TablesPanel extends JPanel {
 
 	public JButton getOkButton() {
 		return this.okButton;
+	}
+	
+	public JButton getBackButton() {
+		return this.backButton;
 	}
 
 	public JTable getFactoryTable() {
@@ -360,4 +386,8 @@ public class TablesPanel extends JPanel {
 	private JLabel label_1;
 	private JLabel label_2;
 	private JButton okButton;
+	private JButton backButton;
+	private JPanel panel;
+	private Component horizontalGlue;
+	private Component horizontalGlue_1;
 }

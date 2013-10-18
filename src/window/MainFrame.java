@@ -47,18 +47,11 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(this);
 		this.saved = true;
-
-		this.setBounds(200, 200, 0, 0);
-		this.setMinimumSize(Const.START_FRAME_SIZE);
-		this.setMaximumSize(Const.DEFAULT_FRAME_SIZE);
-		this.setSize(Const.START_FRAME_SIZE);
+		this.setLocation(150, 150);
 
 		rootPanel = Box.createVerticalBox();
 
-		settingsPanel = new SettingsPanel();
-		settingsPanel.getOkButton().addActionListener(this);
-		settingsPanel.getHelpButton().addActionListener(this);
-		rootPanel.add(settingsPanel);
+		createSettingsPanel();
 
 		this.add(rootPanel);
 		this.setVisible(true);
@@ -72,89 +65,155 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 			// SettingsPanel -> okButton -> Click
 			//
 			// Если нету ошибок во введённых данных, выводит объект TablesPanel
-			int error = settingsPanel.checkData();
-			if (error != Const.NO_ERRORS) {
-				JOptionPane.showMessageDialog(this, errorMessages[error],
-						"Ошибка", JOptionPane.WARNING_MESSAGE);
-				return;
-			}
-			rootPanel.removeAll();
-
-			tablesPanel = new TablesPanel(settingsPanel.getMineNumber(),
-					settingsPanel.getFactoriesNumber());
-			tablesPanel.getOkButton().addActionListener(this);
-			rootPanel.add(tablesPanel);
-
-			this.setMinimumSize(Const.MIN_FRAME_SIZE);
-			this.setMaximumSize(Const.MAX_FRAME_SIZE);
-			this.setSize(Const.DEFAULT_FRAME_SIZE);
-
-			this.log.addItem(
-					GregorianCalendar.getInstance().getTimeInMillis(),
-					"Set the initial parameters: "
-							+ settingsPanel.getMineNumber() + " mines and "
-							+ settingsPanel.getFactoriesNumber()
-							+ " factories.");
-		} else if (((JButton) ev.getSource()).getText().equals("Посчитать")) {
-			// TablesPanel -> okButton -> Click
-			//
-			// Если нету ошибок во введённых данных, выводит объект
-			// SolutionPanel
-			int error = tablesPanel.checkData();
-			if (error != Const.NO_ERRORS) {
-				JOptionPane.showMessageDialog(this, errorMessages[error],
-						"Ошибка", JOptionPane.WARNING_MESSAGE);
-				return;
-			}
-			this.saved = false;
-			rootPanel.removeAll();
-
-			this.log.addItem(GregorianCalendar.getInstance().getTimeInMillis(),
-					"Specifying the parameters of the problem: ");
-			int[][] mineArray = { tablesPanel.getMineArray() };
-			int[][] factoryArray = { tablesPanel.getFactoryArray() };
-			this.log.addTable(mineArray, GregorianCalendar.getInstance()
-					.getTimeInMillis(), "The amount of goods from producers");
-			this.log.addTable(factoryArray, GregorianCalendar.getInstance()
-					.getTimeInMillis(), "Number of product required consumers");
-			this.log.addTable(tablesPanel.getCostArray(), GregorianCalendar
-					.getInstance().getTimeInMillis(), "Cost matrix");
-
-			Data data = new Data(tablesPanel.getMineArray(),
-					tablesPanel.getFactoryArray(), tablesPanel.getCostArray());
-			Solver solver = new Solver(data);
-
-			this.log.addItem(GregorianCalendar.getInstance().getTimeInMillis(),
-					"Start the calculation of the optimal transport matrix");
-			Integer[][] solution = solver.solve();
-			this.log.addTable(solution, GregorianCalendar.getInstance()
-					.getTimeInMillis(),
-					"The end the calculation of the optimal transport matrix");
-
-			solutionPanel = new SolutionPanel(settingsPanel.getMineNumber(),
-					settingsPanel.getFactoriesNumber());
-			solutionPanel.setTableData(solution);
-			solutionPanel.setSaveAction(this);
-			solutionPanel.setExitAction(this);
-			getContentPane().add(solutionPanel);
-
-			this.setMinimumSize(new Dimension(Const.MIN_FRAME_SIZE.width,
-					Const.MIN_FRAME_SIZE.height - 100));
-			this.setSize(Const.DEFAULT_FRAME_SIZE.width - 5,
-					Const.DEFAULT_FRAME_SIZE.height - 5);
-			this.repaint();
+			createTablesPanel();
 		} else if (((JButton) ev.getSource()).getText().equals("")) {
 			// SettingsPanel -> helpButton -> Click
 			JOptionPane.showMessageDialog(this, helpMessage, "Справка",
 					JOptionPane.OK_OPTION, new ImageIcon(Toolkit
 							.getDefaultToolkit().getImage("help.png")));
+		} else if (((JButton) ev.getSource()).getText().equals("Посчитать")) {
+			// TablesPanel -> okButton -> Click
+			//
+			// Если нету ошибок во введённых данных, выводит объект SolutionPanel
+			createSolutionPanel();
+		} else if (((JButton) ev.getSource()).getText().equals("Изменить настройки")) {
+			// TablesPanel -> backButton -> Click
+			//
+			// Возвращает панель с первичными настройками задачи
+			rebuildSettingsPanel();
 		} else if (((JButton) ev.getSource()).getText().equals("Сохранить")) {
 			// SolutionPanel -> saveButton -> Click
 			saveLog();
+		} else if (((JButton) ev.getSource()).getText().equals("Назад")) {
+			// SolutionPanel -> backButton -> Click
+			rebuildTablesPanel();
 		} else if (((JButton) ev.getSource()).getText().equals("Выход")) {
 			// SolutionPanel -> exitButton -> Click
 			exit();
 		}
+	}
+
+	/**
+	 * Метод для повторной отрисовки ранее созданного объекта SettingsPanel (по
+	 * событию TablesPanel -> backButton -> click)
+	 */
+	private void rebuildSettingsPanel() {
+		rootPanel.removeAll();
+		this.revalidate();
+		rootPanel.add(settingsPanel);
+
+		this.setMinimumSize(Const.START_FRAME_SIZE);
+		this.setMaximumSize(Const.DEFAULT_FRAME_SIZE);
+		this.setSize(Const.START_FRAME_SIZE);
+	}
+
+	/**
+	 * Метод для генерации объекта SettingsPanel
+	 */
+	private void createSettingsPanel() {
+		rootPanel.removeAll();
+
+		settingsPanel = new SettingsPanel();
+		settingsPanel.getOkButton().addActionListener(this);
+		settingsPanel.getHelpButton().addActionListener(this);
+		rootPanel.add(settingsPanel);
+
+		this.setMinimumSize(Const.START_FRAME_SIZE);
+		this.setMaximumSize(Const.DEFAULT_FRAME_SIZE);
+		this.setSize(Const.START_FRAME_SIZE);
+	}
+
+	/**
+	 * Метод для повторной отрисовки ранее созданного объекта TablesPanel (по
+	 * событию SolutionPanel -> backButton -> click)
+	 */
+	private void rebuildTablesPanel() {
+		rootPanel.removeAll();
+		rootPanel.add(tablesPanel);
+
+		this.setMinimumSize(Const.MIN_FRAME_SIZE);
+		this.setMaximumSize(Const.MAX_FRAME_SIZE);
+		this.setSize(Const.DEFAULT_FRAME_SIZE);
+	}
+
+	/**
+	 * Метод для генерации объекта TablesPanel
+	 */
+	private void createTablesPanel() {
+		int error = settingsPanel.checkData();
+		if (error != Const.NO_ERRORS) {
+			JOptionPane.showMessageDialog(this, errorMessages[error], "Ошибка",
+					JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+
+		rootPanel.removeAll();
+
+		tablesPanel = new TablesPanel(settingsPanel.getMineNumber(),
+				settingsPanel.getFactoriesNumber());
+		tablesPanel.getOkButton().addActionListener(this);
+		tablesPanel.getBackButton().addActionListener(this);
+		rootPanel.add(tablesPanel);
+
+		this.setMinimumSize(Const.MIN_FRAME_SIZE);
+		this.setMaximumSize(Const.MAX_FRAME_SIZE);
+		this.setSize(Const.DEFAULT_FRAME_SIZE);
+
+		this.log.addItem(GregorianCalendar.getInstance().getTimeInMillis(),
+				"Set the initial parameters: " + settingsPanel.getMineNumber()
+						+ " mines and " + settingsPanel.getFactoriesNumber()
+						+ " factories.");
+	}
+
+	/**
+	 * Метод для генерации объекта SolutionPanel
+	 */
+	private void createSolutionPanel() {
+		int error = tablesPanel.checkData();
+		if (error != Const.NO_ERRORS) {
+			JOptionPane.showMessageDialog(this, errorMessages[error], "Ошибка",
+					JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		this.saved = false;
+		
+		rootPanel.removeAll();
+
+		this.log.addItem(GregorianCalendar.getInstance().getTimeInMillis(),
+				"Specifying the parameters of the problem: ");
+		int[][] mineArray = { tablesPanel.getMineArray() };
+		int[][] factoryArray = { tablesPanel.getFactoryArray() };
+		this.log.addTable(mineArray, GregorianCalendar.getInstance()
+				.getTimeInMillis(), "The amount of goods from producers");
+		this.log.addTable(factoryArray, GregorianCalendar.getInstance()
+				.getTimeInMillis(), "Number of product required consumers");
+		this.log.addTable(tablesPanel.getCostArray(), GregorianCalendar
+				.getInstance().getTimeInMillis(), "Cost matrix");
+
+		Data data = new Data(tablesPanel.getMineArray(),
+				tablesPanel.getFactoryArray(), tablesPanel.getCostArray());
+		Solver solver = new Solver(data);
+
+		this.log.addItem(GregorianCalendar.getInstance().getTimeInMillis(),
+				"Start the calculation of the optimal transport matrix");
+		Integer[][] solution = solver.solve();
+		this.log.addTable(solution, GregorianCalendar.getInstance()
+				.getTimeInMillis(),
+				"The end the calculation of the optimal transport matrix");
+
+		solutionPanel = new SolutionPanel(settingsPanel.getMineNumber(),
+				settingsPanel.getFactoriesNumber());
+		solutionPanel.setTableData(solution);
+		solutionPanel.getSaveButton().addActionListener(this);
+		solutionPanel.getBackButton().addActionListener(this);
+		solutionPanel.getExitButton().addActionListener(this);
+		rootPanel.add(solutionPanel);
+
+		this.setMinimumSize(new Dimension(Const.MIN_FRAME_SIZE.width,
+				Const.MIN_FRAME_SIZE.height - 100));
+		this.setSize(Const.DEFAULT_FRAME_SIZE.width - 5,
+				Const.DEFAULT_FRAME_SIZE.height - 5);
+		this.repaint();
 	}
 
 	/**
@@ -269,7 +328,8 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 			for (int i = 0; i < data.length; ++i) {
 				curLine = new String("|");
 				for (int j = 0; j < data[i].length; ++j) {
-					curLine += fillString(" ", 10 - String.valueOf(data[i][j]).length())
+					curLine += fillString(" ", 10 - String.valueOf(data[i][j])
+							.length())
 							+ data[i][j] + "|";
 				}
 				this.log.add(fillString("-", curLine.length()) + "\n");
@@ -278,19 +338,19 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 
 			this.log.add(fillString("-", curLine.length()) + "\n");
 		}
-		
+
 		public void addTable(Integer[][] data, long time, String message) {
 			int[][] newData = new int[data.length][data[0].length];
-			
-			for(int i = 0; i < data.length; ++i) {
-				for(int j = 0; j < data[0].length; ++j) {
-					if(data[i][j] == null)
+
+			for (int i = 0; i < data.length; ++i) {
+				for (int j = 0; j < data[0].length; ++j) {
+					if (data[i][j] == null)
 						newData[i][j] = 0;
 					else
 						newData[i][j] = data[i][j];
 				}
 			}
-			
+
 			addTable(newData, time, message);
 		}
 

@@ -50,19 +50,17 @@ public class Solver {
 	 */
 	private Pair minCost() {
 		Pair result = new Pair(0, 0);
-		Integer[][] cost = data.getCost();
+		int[][] cost = data.getCost();
 
 		int min = Integer.MAX_VALUE;
 
 		for (int i = 0; i < cost.length; ++i) {
 			for (int j = 0; j < cost[0].length; ++j) {
 				if (data.isAlowedMine(i) && data.isAlowedFactory(j)) {
-					if (cost[i][j] != null) {
-						if (cost[i][j] < min) {
-							min = cost[i][j];
-							result.a = i;
-							result.b = j;
-						}
+					if (cost[i][j] < min) {
+						min = cost[i][j];
+						result.a = i;
+						result.b = j;
 					}
 				}
 			}
