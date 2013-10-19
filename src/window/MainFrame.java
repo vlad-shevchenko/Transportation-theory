@@ -56,7 +56,7 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 		this.setVisible(true);
 
 		this.log.addItem(GregorianCalendar.getInstance().getTimeInMillis(),
-				"Start");
+				"Старт");
 	}
 
 	public void actionPerformed(ActionEvent ev) {
@@ -66,8 +66,7 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 			// Если нету ошибок во введённых данных, выводит объект TablesPanel
 			createTablesPanel();
 		} else if (((JButton) ev.getSource()).getText().equals("")) {
-			// SettingsPanel -> helpButton -> Click
-			HelpFrame helpFrame = new HelpFrame();
+			new HelpFrame();
 		} else if (((JButton) ev.getSource()).getText().equals("Посчитать")) {
 			// TablesPanel -> okButton -> Click
 			//
@@ -157,9 +156,9 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 		this.setSize(Const.DEFAULT_FRAME_SIZE);
 
 		this.log.addItem(GregorianCalendar.getInstance().getTimeInMillis(),
-				"Set the initial parameters: " + settingsPanel.getMineNumber()
-						+ " mines and " + settingsPanel.getFactoriesNumber()
-						+ " factories.");
+				"Заданы начальные параметры: " + settingsPanel.getMineNumber()
+						+ " производителей и " + settingsPanel.getFactoriesNumber()
+						+ " потребителей.");
 	}
 
 	/**
@@ -177,26 +176,26 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 		rootPanel.removeAll();
 
 		this.log.addItem(GregorianCalendar.getInstance().getTimeInMillis(),
-				"Specifying the parameters of the problem: ");
+				"Заданы основные параметры задачи: ");
 		int[][] mineArray = { tablesPanel.getMineArray() };
 		int[][] factoryArray = { tablesPanel.getFactoryArray() };
 		this.log.addTable(mineArray, GregorianCalendar.getInstance()
-				.getTimeInMillis(), "The amount of goods from producers");
+				.getTimeInMillis(), "Количество товаров у каждого производителя:");
 		this.log.addTable(factoryArray, GregorianCalendar.getInstance()
-				.getTimeInMillis(), "Number of product required consumers");
+				.getTimeInMillis(), "Количество товара, необходимого каждому потребителю:");
 		this.log.addTable(tablesPanel.getCostArray(), GregorianCalendar
-				.getInstance().getTimeInMillis(), "Cost matrix");
+				.getInstance().getTimeInMillis(), "Матрица стоимости");
 
 		Data data = new Data(tablesPanel.getMineArray(),
 				tablesPanel.getFactoryArray(), tablesPanel.getCostArray());
 		Solver solver = new Solver(data);
 
 		this.log.addItem(GregorianCalendar.getInstance().getTimeInMillis(),
-				"Start the calculation of the optimal transport matrix");
+				"Рассчёт оптимальной матрицы перевозок...");
 		Integer[][] solution = solver.solve();
 		this.log.addTable(solution, GregorianCalendar.getInstance()
 				.getTimeInMillis(),
-				"The end the calculation of the optimal transport matrix");
+				"Матрица перевозок: ");
 
 		solutionPanel = new SolutionPanel(settingsPanel.getMineNumber(),
 				settingsPanel.getFactoriesNumber());
@@ -230,12 +229,10 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 		case JFileChooser.APPROVE_OPTION: {
 			File file = chooser.getSelectedFile();
 			try {
-				FileOutputStream out = new FileOutputStream(file);
+				FileWriter out = new FileWriter(file);
 				String line;
 				while ((line = this.log.nextLine()) != null) {
-					for (int i = 0; i < line.length(); ++i) {
-						out.write((byte) line.charAt(i));
-					}
+					out.write(line);			
 				}
 
 				this.saved = true;
@@ -282,24 +279,6 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 
 	public void windowClosing(WindowEvent arg0) {
 		exit();
-	}
-
-	public void windowClosed(WindowEvent arg0) {
-	}
-
-	public void windowActivated(WindowEvent arg0) {
-	}
-
-	public void windowDeactivated(WindowEvent arg0) {
-	}
-
-	public void windowDeiconified(WindowEvent arg0) {
-	}
-
-	public void windowIconified(WindowEvent arg0) {
-	}
-
-	public void windowOpened(WindowEvent arg0) {
 	}
 
 	/**
@@ -383,4 +362,25 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 			"Неверные данные. Проверьте поля для ввода",
 			"Сумма товаров у производителей и сумма товаров, необходимых потребителям должны быть равны",
 			"Количество производителей и потребителей должно быть не меньше двух" };
+	
+/* 
+ * Неиспользуемые методы. Необходимо для корректного субклассирования.
+ */
+	public void windowClosed(WindowEvent arg0) {
+	}
+
+	public void windowActivated(WindowEvent arg0) {
+	}
+
+	public void windowDeactivated(WindowEvent arg0) {
+	}
+
+	public void windowDeiconified(WindowEvent arg0) {
+	}
+
+	public void windowIconified(WindowEvent arg0) {
+	}
+
+	public void windowOpened(WindowEvent arg0) {
+	}
 }
