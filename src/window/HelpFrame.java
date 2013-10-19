@@ -1,42 +1,74 @@
 package window;
 
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 import java.awt.Toolkit;
 
 import javax.swing.JLabel;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JButton;
+
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.JPanel;
+
+import window.panels.HelpPanel;
 
 /**
  * Фрейм, содержащий справку по транспортной задаче
  * 
  */
-public class HelpFrame extends JFrame {
+public class HelpFrame extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	public HelpFrame() {
 		getContentPane().setBackground(new Color(176, 224, 230));
 		setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\Yandex\\Programing\\Java\\Projects\\Transport\\help.png"));
+		setTitle("Помощь");
 		
-		JLabel label = new JLabel(helpMessage);
-		label.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
-		getContentPane().add(label, BorderLayout.CENTER);
-		
-		JButton btnOk = new JButton("\u042F\u0441\u043D\u043E");
-		btnOk.setFocusable(false);
-		btnOk.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
-		btnOk.setForeground(new Color(102, 205, 170));
-		btnOk.setOpaque(false);
-		getContentPane().add(btnOk, BorderLayout.SOUTH);
+		helpPanel = new HelpPanel();
+		getContentPane().add(helpPanel, BorderLayout.CENTER);
 
-		this.setBounds(100, 100, label.getPreferredSize().width, (int) ((label.getPreferredSize().height + btnOk.getPreferredSize().height) * 1.2));
+		helpPanel.getOkButton().addActionListener(this);
+		helpPanel.getRabbitButton().addActionListener(this);
+		
+		this.setLocation(100, 100);
+		this.setSize((int) (helpPanel.getSize().width * 1.05), (int) (helpPanel.getSize().height * 1.05));
+		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 	}
+
+	public void actionPerformed(ActionEvent ev) {
+		if(((JButton) ev.getSource()).getText().equals("Ясно")) {
+			this.dispose();
+		} else { 
+			if(helpPanel.getRabbitStatus()) {
+				helpPanel.remove(helpPanel.getRabbitLabel());
+				helpPanel.add(helpPanel.getHelpLabel(), BorderLayout.CENTER);
+				helpPanel.setRabbitStatus(false);
+				
+				// Замена revalidate() для Java 1.5
+				this.setSize(getSize().width + 1, getSize().height);
+			} else {
+				helpPanel.remove(helpPanel.getHelpLabel());
+				helpPanel.add(helpPanel.getRabbitLabel(), BorderLayout.CENTER);
+				helpPanel.setRabbitStatus(true);
+				
+				// Замена revalidate() для Java 1.5
+				this.setSize(getSize().width - 1, getSize().height);
+			}
+			this.repaint();
+		}
+	}
 	
-	private String helpMessage = "<html><b>Транспортная задача</b> это математическая проблема линейного программирования. <br>В простейшей формулировке выглядит так: <br><br><i>Есть <b>n</b> поставщиков, каждый из которых имеет некоторое количество <br>однородного товара и <b>m</b> потребителей, которым нужно доставить этот товар.<br>Необходимо найти оптимальный способ удовлетворить спрос всех потребителей<br>с минимальными затратами на перевозку.<br></i><br>Основные термины:<ul><li><b>Матрица стоимости</b> - двумерная матрица, которая определяет стоимость<br>перевозки единицы товара от некоторого производителя к некоторому потребителю.<li><b>Матрица перевозок</b> - матрица, в ячейках которой указано количество<br>товара, который необходимо перевезти от производителя к потребителю.</ul>Суммарный объем предложения должен быть равен суммарному спросу, иначе задача<br>называется несбалансированной и не решается(без специального преобразования).<br></html>";
+	private HelpPanel helpPanel;
 }
