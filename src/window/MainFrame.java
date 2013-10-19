@@ -12,7 +12,6 @@ import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.Box;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -68,9 +67,7 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 			createTablesPanel();
 		} else if (((JButton) ev.getSource()).getText().equals("")) {
 			// SettingsPanel -> helpButton -> Click
-			JOptionPane.showMessageDialog(this, helpMessage, "Справка",
-					JOptionPane.OK_OPTION, new ImageIcon(Toolkit
-							.getDefaultToolkit().getImage("help.png")));
+			HelpFrame helpFrame = new HelpFrame();
 		} else if (((JButton) ev.getSource()).getText().equals("Посчитать")) {
 			// TablesPanel -> okButton -> Click
 			//
@@ -386,5 +383,4 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 			"Неверные данные. Проверьте поля для ввода",
 			"Сумма товаров у производителей и сумма товаров, необходимых потребителям должны быть равны",
 			"Количество производителей и потребителей должно быть не меньше двух" };
-	private String helpMessage = "<html><b>Транспортная задача</b> это математическая проблема. <br>В простейшей формулировке выглядит так: <br><br><i>Есть <b>n</b> поставщиков, каждый из которых имеет некоторое количество <br>однородного товара и <b>m</b> потребителей, которым нужно доставить этот товар.<br>Необходимо найти оптимальный способ удовлетворить спрос всех потребителей<br>с минимальными затратами на перевозку.<br></i><br>Основные термины:<ul><li><b>Матрица стоимости</b> - двумерная матрица, которая определяет стоимость<br>перевозки единицы товара от некоторого производителя к некоторому потребителю.<li><b>Матрица перевозок</b> - матрица, в ячейках которой указано количество<br>товара, который необходимо перевезти от производителя к потребителю.</ul>Суммарный объем предложения должен быть равен суммарному спросу, иначе задача<br>называется несбалансированной и не решается(без специального преобразования).<br></html>";
 }

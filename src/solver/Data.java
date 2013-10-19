@@ -34,6 +34,12 @@ public class Data {
 		for (int i = 0; i < factories.length; ++i) {
 			this.factories[i] = factories[i];
 		}
+		
+		for(int i = 0; i < cost.length; ++i) {
+			for(int j = 0; j < cost[0].length; ++j) {
+				this.cost[i][j] = cost[i][j];
+			}
+		}
 	}
 
 	/**
