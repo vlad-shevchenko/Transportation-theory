@@ -95,7 +95,6 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 	 */
 	private void rebuildSettingsPanel() {
 		rootPanel.removeAll();
-		this.revalidate();
 		rootPanel.add(settingsPanel);
 
 		this.setMinimumSize(Const.START_FRAME_SIZE);
