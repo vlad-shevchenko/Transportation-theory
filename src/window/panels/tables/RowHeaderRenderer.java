@@ -7,6 +7,8 @@ import javax.swing.table.*;
 /**
  * RowHeaderRenderer renders row headers. K.O. 
  * Отрисовывает горизонтальные заголовки.
+ * 
+ * Часть паттерна MVC - представление.
  */
 
 @SuppressWarnings("rawtypes")

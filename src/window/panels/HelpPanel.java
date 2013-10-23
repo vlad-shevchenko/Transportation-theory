@@ -27,6 +27,8 @@ public class HelpPanel extends JPanel  {
 		
 		buttons = new ButtonSubpanel();
 		add(buttons, BorderLayout.SOUTH);
+		rabbitButton.setToolTipText("<html><font size=\"4\">\u041A\u0430\u0440\u0442\u0438\u043D\u043A\u0430 \u043A\u0440\u043E\u043B\u0438\u043A\u0430 \u0434\u043B\u044F \u043F\u043E\u0434\u043D\u044F\u0442\u0438\u044F \u043D\u0430\u0441\u0442\u0440\u043E\u0435\u043D\u0438\u044F :-)</font></html>");
+		okButton.setToolTipText("<html><font size=\"4\">\u0412\u0435\u0440\u043D\u0443\u0442\u044C\u0441\u044F \u043A \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0430\u043C</font></html>");
 
 		resizeAll(helpLabel.getPreferredSize().width,
 				(int) ((helpLabel.getPreferredSize().height + buttons.getPreferredSize().height) * 1.05));

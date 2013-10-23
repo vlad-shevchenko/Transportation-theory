@@ -2,8 +2,6 @@ package window;
 
 import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.*;
@@ -14,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.Box;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import solver.Data;
@@ -33,67 +30,50 @@ import java.awt.Toolkit;
  * с матрицей перевозок.
  * 
  * Также обрабатывает нажатия на кнопки и перехватывает событие закрытия
- * окна(для вывода диалогового окна с подтверждением)
+ * окна(для вывода диалогового окна с подтверждением).
+ * 
+ * Используется паттерн Синглтон.
  */
 
-public class MainFrame extends JFrame implements ActionListener, WindowListener {
+public class MainFrame extends JFrame implements WindowListener {
 	private static final long serialVersionUID = 1L;
 
-	public MainFrame() {
+////// Singleton start
+	private static MainFrame instance;
+
+	public static MainFrame getInstance() {
+		if (instance == null) {
+			instance = new MainFrame();
+		}
+		return instance;
+	}
+////// Singleton end
+	
+	private MainFrame() {
 		Image frameIcon = Toolkit.getDefaultToolkit().getImage("frameIcon.png");
 		setIconImage(frameIcon);
 		setTitle("Транспортная задача");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.addWindowListener(this);
-		this.saved = true;
-		this.setLocation(150, 150);
+		addWindowListener(this);
+		saved = true;
+		setLocation(150, 150);
 
 		rootPanel = Box.createVerticalBox();
 
 		createSettingsPanel();
 
-		this.add(rootPanel);
-		this.setVisible(true);
+		add(rootPanel);
+		setVisible(true);
 
-		this.log.addItem(GregorianCalendar.getInstance().getTimeInMillis(),
+		log.addItem(GregorianCalendar.getInstance().getTimeInMillis(),
 				"Старт");
-	}
-
-	public void actionPerformed(ActionEvent ev) {
-		if (((JButton) ev.getSource()).getText().equals("Ok")) {
-			// SettingsPanel -> okButton -> Click
-			//
-			// Если нету ошибок во введённых данных, выводит объект TablesPanel
-			createTablesPanel();
-		} else if (((JButton) ev.getSource()).getText().equals("")) {
-			new HelpFrame();
-		} else if (((JButton) ev.getSource()).getText().equals("Посчитать")) {
-			// TablesPanel -> okButton -> Click
-			//
-			// Если нету ошибок во введённых данных, выводит объект SolutionPanel
-			createSolutionPanel();
-		} else if (((JButton) ev.getSource()).getText().equals("Изменить настройки")) {
-			// TablesPanel -> backButton -> Click
-			//
-			// Возвращает панель с первичными настройками задачи
-			rebuildSettingsPanel();
-		} else if (((JButton) ev.getSource()).getText().equals("Сохранить")) {
-			// SolutionPanel -> saveButton -> Click
-			saveLog();
-		} else if (((JButton) ev.getSource()).getText().equals("Назад")) {
-			// SolutionPanel -> backButton -> Click
-			rebuildTablesPanel();
-		} else if (((JButton) ev.getSource()).getText().equals("Выход")) {
-			// SolutionPanel -> exitButton -> Click
-			exit();
-		}
 	}
 
 	/**
 	 * Метод для повторной отрисовки ранее созданного объекта SettingsPanel (по
 	 * событию TablesPanel -> backButton -> click)
 	 */
-	private void rebuildSettingsPanel() {
+	public void rebuildSettingsPanel() {
 		rootPanel.removeAll();
 		rootPanel.add(settingsPanel);
 
@@ -105,12 +85,10 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 	/**
 	 * Метод для генерации объекта SettingsPanel
 	 */
-	private void createSettingsPanel() {
+	public void createSettingsPanel() {
 		rootPanel.removeAll();
 
 		settingsPanel = new SettingsPanel();
-		settingsPanel.getOkButton().addActionListener(this);
-		settingsPanel.getHelpButton().addActionListener(this);
 		rootPanel.add(settingsPanel);
 
 		this.setMinimumSize(Const.START_FRAME_SIZE);
@@ -122,7 +100,7 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 	 * Метод для повторной отрисовки ранее созданного объекта TablesPanel (по
 	 * событию SolutionPanel -> backButton -> click)
 	 */
-	private void rebuildTablesPanel() {
+	public void rebuildTablesPanel() {
 		rootPanel.removeAll();
 		rootPanel.add(tablesPanel);
 
@@ -134,7 +112,7 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 	/**
 	 * Метод для генерации объекта TablesPanel
 	 */
-	private void createTablesPanel() {
+	public void createTablesPanel() {
 		int error = settingsPanel.checkData();
 		if (error != Const.NO_ERRORS) {
 			JOptionPane.showMessageDialog(this, errorMessages[error], "Ошибка",
@@ -146,8 +124,6 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 
 		tablesPanel = new TablesPanel(settingsPanel.getMineNumber(),
 				settingsPanel.getFactoriesNumber());
-		tablesPanel.getOkButton().addActionListener(this);
-		tablesPanel.getBackButton().addActionListener(this);
 		rootPanel.add(tablesPanel);
 
 		this.setMinimumSize(Const.MIN_FRAME_SIZE);
@@ -163,7 +139,7 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 	/**
 	 * Метод для генерации объекта SolutionPanel
 	 */
-	private void createSolutionPanel() {
+	public void createSolutionPanel() {
 		int error = tablesPanel.checkData();
 		if (error != Const.NO_ERRORS) {
 			JOptionPane.showMessageDialog(this, errorMessages[error], "Ошибка",
@@ -199,9 +175,6 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 		solutionPanel = new SolutionPanel(settingsPanel.getMineNumber(),
 				settingsPanel.getFactoriesNumber());
 		solutionPanel.setTableData(solution);
-		solutionPanel.getSaveButton().addActionListener(this);
-		solutionPanel.getBackButton().addActionListener(this);
-		solutionPanel.getExitButton().addActionListener(this);
 		rootPanel.add(solutionPanel);
 
 		this.setMinimumSize(new Dimension(Const.MIN_FRAME_SIZE.width,
@@ -215,7 +188,7 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 	 * Выводит диалог для выбора файла и сохраняет лог работы программы в этот
 	 * файл.
 	 */
-	private void saveLog() {
+	public void saveLog() {
 		ExtensionFileFilter filter = new ExtensionFileFilter();
 		filter.addExtension(".txt");
 		filter.setDescription("Text files");
@@ -262,7 +235,7 @@ public class MainFrame extends JFrame implements ActionListener, WindowListener 
 	/**
 	 * Если лог не был сохранён, выводит подтверждающее диалоговое окно.
 	 */
-	private void exit() {
+	public void exit() {
 		if (this.saved)
 			System.exit(0);
 		else {

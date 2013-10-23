@@ -16,6 +16,7 @@ import javax.swing.ListModel;
 import javax.swing.JLabel;
 
 import start.Const;
+import window.MainFrame;
 import window.panels.tables.*;
 
 import javax.swing.JButton;
@@ -25,7 +26,11 @@ import java.awt.Color;
 
 import javax.swing.DebugGraphics;
 import javax.swing.BoxLayout;
+
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.Box;
 
 /**
@@ -227,15 +232,18 @@ public class TablesPanel extends JPanel {
 		horizontalGlue = Box.createHorizontalGlue();
 		panel.add(horizontalGlue);
 		
-		backButton = new JButton("\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438");
+		JButton backButton = new JButton("\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438");
 		backButton.setToolTipText("<html><font size=\"4\">\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044C \u0432\u0432\u043E\u0434 \u0434\u0430\u043D\u043D\u044B\u0445 \u0438 \u0440\u0435\u0448\u0438\u0442\u044C \u0437\u0430\u0434\u0430\u0447\u0443</font></html>");
 		backButton.setForeground(new Color(250, 250, 210));
 		backButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		backButton.setBackground(new Color(102, 205, 170));
 		panel.add(backButton);
+		
+		horizontalStrut = Box.createHorizontalStrut(50);
+		panel.add(horizontalStrut);
 
 		// "Посчитать"
-		okButton = new JButton(
+		JButton okButton = new JButton(
 				"\u041F\u043E\u0441\u0447\u0438\u0442\u0430\u0442\u044C");
 		panel.add(okButton);
 		okButton.setForeground(new Color(250, 250, 210));
@@ -266,6 +274,17 @@ public class TablesPanel extends JPanel {
 			column.setPreferredWidth(110);
 			column.setMaxWidth(120);
 		}
+		
+		backButton.addActionListener(new ActionListener() {			
+			public void actionPerformed(ActionEvent e) {
+				MainFrame.getInstance().rebuildSettingsPanel();
+			}
+		});
+		okButton.addActionListener(new ActionListener() {			
+			public void actionPerformed(ActionEvent e) {
+				MainFrame.getInstance().createSolutionPanel();
+			}
+		});
 	}
 
 	public int[] getMineArray() {
@@ -356,14 +375,6 @@ public class TablesPanel extends JPanel {
 		return Const.NO_ERRORS;
 	}
 
-	public JButton getOkButton() {
-		return this.okButton;
-	}
-	
-	public JButton getBackButton() {
-		return this.backButton;
-	}
-
 	public JTable getFactoryTable() {
 		return this.factoryTable;
 	}
@@ -385,9 +396,8 @@ public class TablesPanel extends JPanel {
 	private JLabel label;
 	private JLabel label_1;
 	private JLabel label_2;
-	private JButton okButton;
-	private JButton backButton;
 	private JPanel panel;
 	private Component horizontalGlue;
 	private Component horizontalGlue_1;
+	private Component horizontalStrut;
 }

@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.table.TableColumn;
 
 import start.Const;
+import window.MainFrame;
 import window.panels.tables.*;
 
 import java.awt.GridBagLayout;
@@ -24,8 +25,12 @@ import javax.swing.BoxLayout;
 import java.awt.Component;
 
 import javax.swing.Box;
+
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.SwingConstants;
 
 /**
@@ -128,7 +133,7 @@ public class SolutionPanel extends JPanel {
 		Component horizontalGlue = Box.createHorizontalGlue();
 		panel.add(horizontalGlue);
 
-		saveButton = new JButton(
+		JButton saveButton = new JButton(
 				"\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C");
 		panel.add(saveButton);
 		saveButton
@@ -142,7 +147,7 @@ public class SolutionPanel extends JPanel {
 		Component horizontalStrut_2 = Box.createHorizontalStrut(20);
 		panel.add(horizontalStrut_2);
 
-		backButton = new JButton("\u041D\u0430\u0437\u0430\u0434");
+		JButton backButton = new JButton("\u041D\u0430\u0437\u0430\u0434");
 		panel.add(backButton);
 		backButton
 				.setToolTipText("<html><font size=\"4\">\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u043B\u043E\u0433 \u0440\u0430\u0431\u043E\u0442\u044B \u0432 \u0442\u0435\u043A\u0441\u0442\u043E\u0432\u044B\u0439 \u0444\u0430\u0439\u043B</font></html>");
@@ -154,7 +159,7 @@ public class SolutionPanel extends JPanel {
 		Component horizontalStrut_3 = Box.createHorizontalStrut(20);
 		panel.add(horizontalStrut_3);
 
-		exitButton = new JButton("\u0412\u044B\u0445\u043E\u0434");
+		JButton exitButton = new JButton("\u0412\u044B\u0445\u043E\u0434");
 		panel.add(exitButton);
 		exitButton
 				.setToolTipText("<html><font size=\"4\">\u0412\u044B\u0439\u0442\u0438 \u0438\u0437 \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u044B</font></html>");
@@ -165,6 +170,22 @@ public class SolutionPanel extends JPanel {
 
 		Component horizontalGlue_1 = Box.createHorizontalGlue();
 		panel.add(horizontalGlue_1);
+		
+		saveButton.addActionListener(new ActionListener() {			
+			public void actionPerformed(ActionEvent e) {
+				MainFrame.getInstance().saveLog();
+			}
+		});
+		backButton.addActionListener(new ActionListener() {			
+			public void actionPerformed(ActionEvent e) {
+				MainFrame.getInstance().rebuildTablesPanel();
+			}
+		});
+		exitButton.addActionListener(new ActionListener() {			
+			public void actionPerformed(ActionEvent e) {
+				MainFrame.getInstance().exit();
+			}
+		});
 	}
 
 	public void setTableData(Integer[][] data) {
@@ -175,20 +196,5 @@ public class SolutionPanel extends JPanel {
 		}
 	}
 
-	public JButton getSaveButton() {
-		return this.saveButton;
-	}
-
-	public JButton getBackButton() {
-		return this.backButton;
-	}
-
-	public JButton getExitButton() {
-		return this.exitButton;
-	}
-
 	private JTable solutionTable;
-	private JButton saveButton;
-	private JButton backButton;
-	private JButton exitButton;
 }

@@ -10,6 +10,8 @@ import javax.swing.table.TableModel;
  * TableModel для матрицы стоимости и матрицы перевозок. Используется в
  * CostTable и SolutionTable. Содержит двумерный массив с матрицей. Имена
  * заголовков: <Потребитель i>, где i - порядковый номер строки.
+ * 
+ * Часть паттерна MVC - модель.
  */
 
 public class MatrixTableModel implements TableModel {

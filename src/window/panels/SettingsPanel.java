@@ -6,18 +6,27 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JButton;
 
 import start.Const;
+import window.HelpFrame;
+import window.MainFrame;
 
 import java.awt.Font;
 import java.awt.Component;
+
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+
 import java.awt.Dimension;
 import java.awt.Color;
+
 import javax.swing.DebugGraphics;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 /**
@@ -93,7 +102,7 @@ public class SettingsPanel extends JPanel {
 		Component horizontalGlue = Box.createHorizontalGlue();
 		okPanel.add(horizontalGlue);
 
-		okButton = new JButton("Ok");
+		JButton okButton = new JButton("Ok");
 		okButton.setMnemonic(KeyEvent.VK_ENTER);
 		okButton.setDebugGraphicsOptions(DebugGraphics.NONE_OPTION);
 		okButton.setForeground(new Color(250, 250, 210));
@@ -104,7 +113,7 @@ public class SettingsPanel extends JPanel {
 
 		Component horizontalGlue_1 = Box.createHorizontalGlue();
 		okPanel.add(horizontalGlue_1);
-		helpButton = new JButton("");
+		JButton helpButton = new JButton("");
 		helpButton.setMnemonic(KeyEvent.VK_H);
 		helpButton.setIconTextGap(0);
 		helpButton.setForeground(new Color(250, 250, 210));
@@ -114,6 +123,17 @@ public class SettingsPanel extends JPanel {
 		helpButton.setIcon(buttonIcon);
 		helpButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		okPanel.add(helpButton);
+		
+		okButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				MainFrame.getInstance().createTablesPanel();
+			}
+		});
+		helpButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new HelpFrame();
+			}
+		});
 	}
 
 	/**
@@ -162,18 +182,8 @@ public class SettingsPanel extends JPanel {
 		}
 	}
 
-	public JButton getOkButton() {
-		return this.okButton;
-	}
-
-	public JButton getHelpButton() {
-		return helpButton;
-	}
-
 	private JTextField factoryTextField;
 	private JLabel mineLabel;
 	private JLabel factoryLabel;
-	private JButton okButton;
 	private JTextField mineTextField;
-	private JButton helpButton;
 }
