@@ -16,6 +16,12 @@ import javax.swing.table.TableModel;
 
 public class MatrixTableModel implements TableModel {
 
+	private int rowCount;
+	private int columnCount;
+	private boolean editable;
+	private Set<TableModelListener> listeners = new HashSet<TableModelListener>();
+	private Object[][] data;
+
 	public MatrixTableModel(int mines, int factories) {
 		this.rowCount = mines;
 		this.columnCount = factories;
@@ -66,10 +72,4 @@ public class MatrixTableModel implements TableModel {
 	public void setEditable(boolean editable) {
 		this.editable = editable;
 	}
-
-	private int rowCount;
-	private int columnCount;
-	private boolean editable;
-	private Set<TableModelListener> listeners = new HashSet<TableModelListener>();
-	private Object[][] data;
 }

@@ -11,6 +11,8 @@ import javax.swing.AbstractListModel;
 public abstract class AbstractRowHeader extends AbstractListModel<String> {
 	private static final long serialVersionUID = 1L;
 
+	private int size;
+
 	public AbstractRowHeader(int size) {
 		this.size = size;
 	}
@@ -18,6 +20,4 @@ public abstract class AbstractRowHeader extends AbstractListModel<String> {
 	public int getSize() {
 		return size;
 	}
-
-	private int size;
 }

@@ -42,17 +42,20 @@ import javax.swing.Box;
 public class TablesPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
-	@SuppressWarnings("unchecked")
+	private JTable factoryTable;
+	private JTable mineTable;
+	private JTable costTable;
+	private JScrollPane mineScroll;
+	private JScrollPane factoryScroll;
+	private JScrollPane costScroll;
+
 	public TablesPanel(int mines, int factories) {
 		setBackground(new Color(176, 224, 230));
-		// Debug
-		// mines = 3;
-		// factories = 4;
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		setLayout(gridBagLayout);
 
 		// "Количество товара у производителей"
-		label = new JLabel(
+		JLabel label = new JLabel(
 				"\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430 \u0443 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u0435\u0439");
 		label.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 		label.setFocusable(false);
@@ -105,7 +108,7 @@ public class TablesPanel extends JPanel {
 		mineScroll.getRowHeader().getView().setBackground(new Color(176, 224, 230));
 
 		// "Количество товара, необходимого потребителям"
-		label_1 = new JLabel(
+		JLabel label_1 = new JLabel(
 				"\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0442\u043E\u0432\u0430\u0440\u0430, \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E\u0433\u043E \u043F\u043E\u0442\u0440\u0435\u0431\u0438\u0442\u0435\u043B\u044F\u043C");
 		label_1.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 		label_1.setFocusable(false);
@@ -159,7 +162,7 @@ public class TablesPanel extends JPanel {
 		factoryScroll.getRowHeader().getView().setBackground(new Color(176, 224, 230));
 		factoryTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-		label_2 = new JLabel(
+		JLabel label_2 = new JLabel(
 				"\u041C\u0430\u0442\u0440\u0438\u0446\u0430 \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u0438");
 		label_2.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 		label_2.setFocusable(false);
@@ -220,7 +223,7 @@ public class TablesPanel extends JPanel {
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0 };
 		
-		panel = new JPanel();
+		JPanel panel = new JPanel();
 		panel.setOpaque(false);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
@@ -229,7 +232,7 @@ public class TablesPanel extends JPanel {
 		add(panel, gbc_panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		
-		horizontalGlue = Box.createHorizontalGlue();
+		Component horizontalGlue = Box.createHorizontalGlue();
 		panel.add(horizontalGlue);
 		
 		JButton backButton = new JButton("\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438");
@@ -239,7 +242,7 @@ public class TablesPanel extends JPanel {
 		backButton.setBackground(new Color(102, 205, 170));
 		panel.add(backButton);
 		
-		horizontalStrut = Box.createHorizontalStrut(50);
+		Component horizontalStrut = Box.createHorizontalStrut(50);
 		panel.add(horizontalStrut);
 
 		// "Посчитать"
@@ -251,7 +254,7 @@ public class TablesPanel extends JPanel {
 		okButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		okButton.setToolTipText("<html><font size=\"4\">\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044C \u0432\u0432\u043E\u0434 \u0434\u0430\u043D\u043D\u044B\u0445 \u0438 \u0440\u0435\u0448\u0438\u0442\u044C \u0437\u0430\u0434\u0430\u0447\u0443</font></html>");
 		
-		horizontalGlue_1 = Box.createHorizontalGlue();
+		Component horizontalGlue_1 = Box.createHorizontalGlue();
 		panel.add(horizontalGlue_1);
 
 		for (int i = 0; i < mineTable.getColumnCount(); ++i) {
@@ -386,18 +389,4 @@ public class TablesPanel extends JPanel {
 	public JTable getCostTable() {
 		return this.costTable;
 	}
-
-	private JTable factoryTable;
-	private JTable mineTable;
-	private JTable costTable;
-	private JScrollPane mineScroll;
-	private JScrollPane factoryScroll;
-	private JScrollPane costScroll;
-	private JLabel label;
-	private JLabel label_1;
-	private JLabel label_2;
-	private JPanel panel;
-	private Component horizontalGlue;
-	private Component horizontalGlue_1;
-	private Component horizontalStrut;
 }

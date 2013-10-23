@@ -41,10 +41,11 @@ import javax.swing.SwingConstants;
 public class SolutionPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
-	@SuppressWarnings("unchecked")
+	private JTable solutionTable;
+
 	public SolutionPanel(int mines, int factories) {
 		setBackground(new Color(176, 224, 230));
-		this.setBounds(0, 0, Const.DEFAULT_FRAME_SIZE.width, 300);
+		setBounds(0, 0, Const.DEFAULT_FRAME_SIZE.width, 300);
 		CostRowHeader listModel = new CostRowHeader(mines);
 		GridBagConstraints gbc_costScroll = new GridBagConstraints();
 		gbc_costScroll.anchor = GridBagConstraints.NORTHWEST;
@@ -191,10 +192,8 @@ public class SolutionPanel extends JPanel {
 	public void setTableData(Integer[][] data) {
 		for (int i = 0; i < data.length; ++i) {
 			for (int j = 0; j < data[0].length; ++j) {
-				this.solutionTable.setValueAt(data[i][j], i, j);
+				solutionTable.setValueAt(data[i][j], i, j);
 			}
 		}
 	}
-
-	private JTable solutionTable;
 }

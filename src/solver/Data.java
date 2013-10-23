@@ -12,6 +12,13 @@ package solver;
  */
 
 public class Data {
+
+	private boolean[] correctMines;
+	private boolean[] correctFactories;
+	private int[] mines;
+	private int[] factories;
+	private int[][] cost;
+
 	public Data(int[] mines, int[] factories, int[][] cost) {
 		this.mines = new int[mines.length];
 		this.factories = new int[factories.length];
@@ -34,9 +41,9 @@ public class Data {
 		for (int i = 0; i < factories.length; ++i) {
 			this.factories[i] = factories[i];
 		}
-		
-		for(int i = 0; i < cost.length; ++i) {
-			for(int j = 0; j < cost[0].length; ++j) {
+
+		for (int i = 0; i < cost.length; ++i) {
+			for (int j = 0; j < cost[0].length; ++j) {
 				this.cost[i][j] = cost[i][j];
 			}
 		}
@@ -65,7 +72,7 @@ public class Data {
 	public boolean isAllCellsForbidden() {
 		boolean mineResult = true;
 		boolean factoryResult = true;
-		
+
 		for (int i = 0; i < correctMines.length; ++i) {
 			if (correctMines[i] == true)
 				mineResult = false;
@@ -87,11 +94,11 @@ public class Data {
 	}
 
 	public void removeMine(int num) {
-		this.correctMines[num] = false;
+		correctMines[num] = false;
 	}
 
 	public void removeFactory(int num) {
-		this.correctFactories[num] = false;
+		correctFactories[num] = false;
 	}
 
 	public boolean isAlowedMine(int num) {
@@ -113,10 +120,4 @@ public class Data {
 	public int[][] getCost() {
 		return this.cost;
 	}
-
-	private boolean[] correctMines;
-	private boolean[] correctFactories;
-	private int[] mines;
-	private int[] factories;
-	private int[][] cost;
 }

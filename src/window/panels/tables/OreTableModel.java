@@ -17,6 +17,11 @@ import javax.swing.table.TableModel;
 
 public class OreTableModel implements TableModel {
 
+	protected int rowCount;
+	protected int columnCount;
+	protected Set<TableModelListener> listeners = new HashSet<TableModelListener>();
+	protected Object[][] data;
+
 	public OreTableModel(int values) {
 		this.data = new Object[1][values];
 		columnCount = values;
@@ -57,9 +62,4 @@ public class OreTableModel implements TableModel {
 	public void setValueAt(Object value, int row, int column) {
 		data[row][column] = value;
 	}
-
-	protected int rowCount;
-	protected int columnCount;
-	protected Set<TableModelListener> listeners = new HashSet<TableModelListener>();
-	protected Object[][] data;
 }

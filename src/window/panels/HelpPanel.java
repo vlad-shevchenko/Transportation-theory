@@ -15,6 +15,13 @@ import javax.swing.SwingConstants;
 public class HelpPanel extends JPanel  {
 	private static final long serialVersionUID = 1L;
 
+	private ButtonSubpanel buttons;
+	private JButton okButton;
+	private JButton rabbitButton;
+	private JLabel helpLabel;
+	private JLabel rabbitLabel;
+	private boolean rabbitStatus;
+
 	public HelpPanel() {
 		setLayout(new BorderLayout(0, 0));
 		helpLabel = new JLabel(helpMessage);
@@ -42,14 +49,6 @@ public class HelpPanel extends JPanel  {
 	public JButton getRabbitButton() {
 		return this.rabbitButton;
 	}
-	
-	private void resizeAll(int width, int height) {
-		Dimension size = new Dimension(width, height);
-		this.setMinimumSize(size);
-		this.setPreferredSize(size);
-		this.setMaximumSize(size);
-		this.setSize(size);
-	}
 
 	public JLabel getHelpLabel() {
 		return this.helpLabel;
@@ -65,6 +64,14 @@ public class HelpPanel extends JPanel  {
 	
 	public void setRabbitStatus(boolean status) {
 		rabbitStatus = status;
+	}
+	
+	private void resizeAll(int width, int height) {
+		Dimension size = new Dimension(width, height);
+		this.setMinimumSize(size);
+		this.setPreferredSize(size);
+		this.setMaximumSize(size);
+		this.setSize(size);
 	}
 
 	private class ButtonSubpanel extends JPanel {
@@ -90,15 +97,5 @@ public class HelpPanel extends JPanel  {
 		}
 	}
 
-	private ButtonSubpanel buttons;
-	private JButton okButton;
-	private JButton rabbitButton;
-	private JLabel helpLabel;
-	private JLabel rabbitLabel;
-
-	// True, если кнопка rabbitButton нажата и вместо текста отображается
-	// кролик.
-	private boolean rabbitStatus;
-
-	private String helpMessage = "<html><b>Транспортная задача</b> это математическая проблема линейного программирования. <br>В простейшей формулировке выглядит так: <br><br><i>Есть <b>n</b> поставщиков, каждый из которых имеет некоторое количество <br>однородного товара и <b>m</b> потребителей, которым нужно доставить этот товар.<br>Необходимо найти оптимальный способ удовлетворить спрос всех потребителей<br>с минимальными затратами на перевозку.<br></i><br>Основные термины:<ul><li><b>Матрица стоимости</b> - двумерная матрица, которая определяет стоимость<br>перевозки единицы товара от некоторого производителя к некоторому потребителю.<li><b>Матрица перевозок</b> - матрица, в ячейках которой указано количество<br>товара, который необходимо перевезти от производителя к потребителю.</ul>Суммарный объем предложения должен быть равен суммарному спросу, иначе задача<br>называется несбалансированной и не решается(без специального преобразования).<br></html>";
+	private final String helpMessage = "<html><b>Транспортная задача</b> это математическая проблема линейного программирования. <br>В простейшей формулировке выглядит так: <br><br><i>Есть <b>n</b> поставщиков, каждый из которых имеет некоторое количество <br>однородного товара и <b>m</b> потребителей, которым нужно доставить этот товар.<br>Необходимо найти оптимальный способ удовлетворить спрос всех потребителей<br>с минимальными затратами на перевозку.<br></i><br>Основные термины:<ul><li><b>Матрица стоимости</b> - двумерная матрица, которая определяет стоимость<br>перевозки единицы товара от некоторого производителя к некоторому потребителю.<li><b>Матрица перевозок</b> - матрица, в ячейках которой указано количество<br>товара, который необходимо перевезти от производителя к потребителю.</ul>Суммарный объем предложения должен быть равен суммарному спросу, иначе задача<br>называется несбалансированной и не решается(без специального преобразования).<br></html>";
 }

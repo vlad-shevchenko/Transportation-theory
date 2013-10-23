@@ -11,6 +11,10 @@ import javax.swing.filechooser.FileFilter;
  */
 
 public class ExtensionFileFilter extends FileFilter {
+	
+	private String description;
+	private ArrayList<String> extensions = new ArrayList<String>();
+	
 	public void addExtension(String ext) {
 		if (!ext.startsWith("."))
 			extensions.add("." + ext);
@@ -37,7 +41,4 @@ public class ExtensionFileFilter extends FileFilter {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	private String description;
-	private ArrayList<String> extensions = new ArrayList<String>();
 }

@@ -38,7 +38,12 @@ import java.awt.Toolkit;
 public class MainFrame extends JFrame implements WindowListener {
 	private static final long serialVersionUID = 1L;
 
-////// Singleton start
+	private Box rootPanel;
+	private SettingsPanel settingsPanel;
+	private TablesPanel tablesPanel;
+	private SolutionPanel solutionPanel;
+	private Log log = new Log();
+	private boolean saved;
 	private static MainFrame instance;
 
 	public static MainFrame getInstance() {
@@ -47,7 +52,6 @@ public class MainFrame extends JFrame implements WindowListener {
 		}
 		return instance;
 	}
-////// Singleton end
 	
 	private MainFrame() {
 		Image frameIcon = Toolkit.getDefaultToolkit().getImage("frameIcon.png");
@@ -59,31 +63,28 @@ public class MainFrame extends JFrame implements WindowListener {
 		setLocation(150, 150);
 
 		rootPanel = Box.createVerticalBox();
-
 		createSettingsPanel();
-
 		add(rootPanel);
 		setVisible(true);
 
-		log.addItem(GregorianCalendar.getInstance().getTimeInMillis(),
-				"Старт");
+		log.addItem(GregorianCalendar.getInstance().getTimeInMillis(), "Старт");
 	}
 
 	/**
-	 * Метод для повторной отрисовки ранее созданного объекта SettingsPanel (по
+	 * Повторная отрисовка ранее созданного объекта SettingsPanel (по
 	 * событию TablesPanel -> backButton -> click)
 	 */
 	public void rebuildSettingsPanel() {
 		rootPanel.removeAll();
 		rootPanel.add(settingsPanel);
 
-		this.setMinimumSize(Const.START_FRAME_SIZE);
-		this.setMaximumSize(Const.DEFAULT_FRAME_SIZE);
-		this.setSize(Const.START_FRAME_SIZE);
+		setMinimumSize(Const.START_FRAME_SIZE);
+		setMaximumSize(Const.DEFAULT_FRAME_SIZE);
+		setSize(Const.START_FRAME_SIZE);
 	}
 
 	/**
-	 * Метод для генерации объекта SettingsPanel
+	 * Генерация объекта SettingsPanel
 	 */
 	public void createSettingsPanel() {
 		rootPanel.removeAll();
@@ -91,26 +92,26 @@ public class MainFrame extends JFrame implements WindowListener {
 		settingsPanel = new SettingsPanel();
 		rootPanel.add(settingsPanel);
 
-		this.setMinimumSize(Const.START_FRAME_SIZE);
-		this.setMaximumSize(Const.DEFAULT_FRAME_SIZE);
-		this.setSize(Const.START_FRAME_SIZE);
+		setMinimumSize(Const.START_FRAME_SIZE);
+		setMaximumSize(Const.DEFAULT_FRAME_SIZE);
+		setSize(Const.START_FRAME_SIZE);
 	}
 
 	/**
-	 * Метод для повторной отрисовки ранее созданного объекта TablesPanel (по
+	 * Повторная отрисовка ранее созданного объекта TablesPanel (по
 	 * событию SolutionPanel -> backButton -> click)
 	 */
 	public void rebuildTablesPanel() {
 		rootPanel.removeAll();
 		rootPanel.add(tablesPanel);
 
-		this.setMinimumSize(Const.MIN_FRAME_SIZE);
-		this.setMaximumSize(Const.MAX_FRAME_SIZE);
-		this.setSize(Const.DEFAULT_FRAME_SIZE);
+		setMinimumSize(Const.MIN_FRAME_SIZE);
+		setMaximumSize(Const.MAX_FRAME_SIZE);
+		setSize(Const.DEFAULT_FRAME_SIZE);
 	}
 
 	/**
-	 * Метод для генерации объекта TablesPanel
+	 * Генерация объекта TablesPanel
 	 */
 	public void createTablesPanel() {
 		int error = settingsPanel.checkData();
@@ -126,18 +127,19 @@ public class MainFrame extends JFrame implements WindowListener {
 				settingsPanel.getFactoriesNumber());
 		rootPanel.add(tablesPanel);
 
-		this.setMinimumSize(Const.MIN_FRAME_SIZE);
-		this.setMaximumSize(Const.MAX_FRAME_SIZE);
-		this.setSize(Const.DEFAULT_FRAME_SIZE);
+		setMinimumSize(Const.MIN_FRAME_SIZE);
+		setMaximumSize(Const.MAX_FRAME_SIZE);
+		setSize(Const.DEFAULT_FRAME_SIZE);
 
-		this.log.addItem(GregorianCalendar.getInstance().getTimeInMillis(),
+		log.addItem(
+				GregorianCalendar.getInstance().getTimeInMillis(),
 				"Заданы начальные параметры: " + settingsPanel.getMineNumber()
-						+ " производителей и " + settingsPanel.getFactoriesNumber()
-						+ " потребителей.");
+						+ " производителей и "
+						+ settingsPanel.getFactoriesNumber() + " потребителей.");
 	}
 
 	/**
-	 * Метод для генерации объекта SolutionPanel
+	 * Генерация объекта SolutionPanel
 	 */
 	public void createSolutionPanel() {
 		int error = tablesPanel.checkData();
@@ -146,18 +148,20 @@ public class MainFrame extends JFrame implements WindowListener {
 					JOptionPane.WARNING_MESSAGE);
 			return;
 		}
-		this.saved = false;
-		
+		saved = false;
+
 		rootPanel.removeAll();
 
-		this.log.addItem(GregorianCalendar.getInstance().getTimeInMillis(),
+		log.addItem(GregorianCalendar.getInstance().getTimeInMillis(),
 				"Заданы основные параметры задачи: ");
 		int[][] mineArray = { tablesPanel.getMineArray() };
 		int[][] factoryArray = { tablesPanel.getFactoryArray() };
-		this.log.addTable(mineArray, GregorianCalendar.getInstance()
-				.getTimeInMillis(), "Количество товаров у каждого производителя:");
-		this.log.addTable(factoryArray, GregorianCalendar.getInstance()
-				.getTimeInMillis(), "Количество товара, необходимого каждому потребителю:");
+		log.addTable(mineArray, GregorianCalendar.getInstance()
+				.getTimeInMillis(),
+				"Количество товаров у каждого производителя:");
+		log.addTable(factoryArray, GregorianCalendar.getInstance()
+				.getTimeInMillis(),
+				"Количество товара, необходимого каждому потребителю:");
 		this.log.addTable(tablesPanel.getCostArray(), GregorianCalendar
 				.getInstance().getTimeInMillis(), "Матрица стоимости");
 
@@ -165,27 +169,26 @@ public class MainFrame extends JFrame implements WindowListener {
 				tablesPanel.getFactoryArray(), tablesPanel.getCostArray());
 		Solver solver = new Solver(data);
 
-		this.log.addItem(GregorianCalendar.getInstance().getTimeInMillis(),
+		log.addItem(GregorianCalendar.getInstance().getTimeInMillis(),
 				"Рассчёт оптимальной матрицы перевозок...");
 		Integer[][] solution = solver.solve();
-		this.log.addTable(solution, GregorianCalendar.getInstance()
-				.getTimeInMillis(),
-				"Матрица перевозок: ");
+		log.addTable(solution, GregorianCalendar.getInstance()
+				.getTimeInMillis(), "Матрица перевозок: ");
 
 		solutionPanel = new SolutionPanel(settingsPanel.getMineNumber(),
 				settingsPanel.getFactoriesNumber());
 		solutionPanel.setTableData(solution);
 		rootPanel.add(solutionPanel);
 
-		this.setMinimumSize(new Dimension(Const.MIN_FRAME_SIZE.width,
+		setMinimumSize(new Dimension(Const.MIN_FRAME_SIZE.width,
 				Const.MIN_FRAME_SIZE.height - 100));
-		this.setSize(Const.DEFAULT_FRAME_SIZE.width - 5,
+		setSize(Const.DEFAULT_FRAME_SIZE.width - 5,
 				Const.DEFAULT_FRAME_SIZE.height - 5);
-		this.repaint();
+		repaint();
 	}
 
 	/**
-	 * Выводит диалог для выбора файла и сохраняет лог работы программы в этот
+	 * Вывод диалога для выбора файла и сохранение лог работы программы в этот
 	 * файл.
 	 */
 	public void saveLog() {
@@ -204,10 +207,10 @@ public class MainFrame extends JFrame implements WindowListener {
 				FileWriter out = new FileWriter(file);
 				String line;
 				while ((line = this.log.nextLine()) != null) {
-					out.write(line);			
+					out.write(line);
 				}
 
-				this.saved = true;
+				saved = true;
 				out.close();
 			} catch (IOException e) {
 				JOptionPane
@@ -233,10 +236,11 @@ public class MainFrame extends JFrame implements WindowListener {
 	}
 
 	/**
-	 * Если лог не был сохранён, выводит подтверждающее диалоговое окно.
+	 * Если лог не был сохранён, выводит подтверждающее диалоговое окно. Иначе -
+	 * завершает программу.
 	 */
 	public void exit() {
-		if (this.saved)
+		if (saved)
 			System.exit(0);
 		else {
 			int answer = JOptionPane.showConfirmDialog(this,
@@ -322,20 +326,15 @@ public class MainFrame extends JFrame implements WindowListener {
 		return result;
 	}
 
-	private Box rootPanel;
-	private SettingsPanel settingsPanel;
-	private TablesPanel tablesPanel;
-	private SolutionPanel solutionPanel;
-	private Log log = new Log();
-	private boolean saved;
-	private String[] errorMessages = {
+	private final String[] errorMessages = {
 			"Ok",
 			"Введены не все данные. Проверьте поля для ввода",
 			"Неверные данные. Проверьте поля для ввода",
 			"Сумма товаров у производителей и сумма товаров, необходимых потребителям должны быть равны",
-			"Количество производителей и потребителей должно быть не меньше двух" };
-	
-/* 
+			"Количество производителей и потребителей должно быть не меньше двух" 
+			};
+
+/*
  * Неиспользуемые методы. Необходимо для корректного субклассирования.
  */
 	public void windowClosed(WindowEvent arg0) {

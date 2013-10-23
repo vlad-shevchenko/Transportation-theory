@@ -5,6 +5,9 @@ package solver;
  */
 
 public class Solver {
+
+	private Data data;
+	
 	public Solver(Data data) {
 		this.data = data;
 	}
@@ -19,11 +22,8 @@ public class Solver {
 		Integer[][] solution = new Integer[data.getMines().length][data
 				.getFactories().length];
 
-		// ѕостроение опорного плана
 		while (!data.isAllCellsForbidden()) {
-			Pair coords = minCost(); // координаты €чейки с минимальным
-										// значением
-										// в матрице стоимости
+			Pair coords = minCost();
 
 			int dec = minOf(data.getMines()[coords.a],
 					data.getFactories()[coords.b]);
@@ -72,6 +72,4 @@ public class Solver {
 	private int minOf(int a, int b) {
 		return (a > b) ? b : a;
 	}
-
-	private Data data;
 }
