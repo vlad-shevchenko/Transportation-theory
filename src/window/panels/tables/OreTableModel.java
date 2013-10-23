@@ -28,7 +28,7 @@ public class OreTableModel implements TableModel {
 	}
 
 	public void addTableModelListener(TableModelListener l) {
-		this.listeners.add(l);
+		listeners.add(l);
 	}
 
 	public Class<?> getColumnClass(int i) {
@@ -56,7 +56,7 @@ public class OreTableModel implements TableModel {
 	}
 
 	public void removeTableModelListener(TableModelListener l) {
-		this.listeners.remove(l);
+		listeners.remove(l);
 	}
 
 	public void setValueAt(Object value, int row, int column) {

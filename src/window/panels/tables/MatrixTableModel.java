@@ -23,10 +23,10 @@ public class MatrixTableModel implements TableModel {
 	private Object[][] data;
 
 	public MatrixTableModel(int mines, int factories) {
-		this.rowCount = mines;
-		this.columnCount = factories;
+		rowCount = mines;
+		columnCount = factories;
 
-		this.data = new Object[mines][factories];
+		data = new Object[mines][factories];
 	}
 
 	public void addTableModelListener(TableModelListener l) {
