@@ -120,4 +120,13 @@ public class Data {
 	public int[][] getCost() {
 		return this.cost;
 	}
+	
+	public Object clone() {
+		try {
+			return super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
