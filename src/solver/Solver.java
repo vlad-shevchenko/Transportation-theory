@@ -10,11 +10,7 @@ public class Solver {
 	private Data data;
 
 	public Solver(Data data) {
-		try {
-			this.data = (Data) data.clone();
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-		}
+		this.data = (Data) data.clone();
 	}
 
 	/**
