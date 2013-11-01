@@ -1,15 +1,20 @@
 package solver;
+
 /**
  * Решает задачу. Конструктор принимает объект Data, метод solve() возвращает
- * матрицу перевозок
+ * матрицу перевозок.
  */
 
 public class Solver {
 
 	private Data data;
-	
+
 	public Solver(Data data) {
-		this.data = data;
+		try {
+			this.data = (Data) data.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -38,7 +43,7 @@ public class Solver {
 
 			solution[coords.a][coords.b] = dec;
 		}
-		
+
 		return solution;
 	}
 
