@@ -1,2 +1,6 @@
 *.class
 *.jar
+/.gitignore
+/solver
+/start
+/window

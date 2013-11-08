@@ -151,7 +151,7 @@ public class SolutionPanel extends JPanel {
 		JButton backButton = new JButton("\u041D\u0430\u0437\u0430\u0434");
 		panel.add(backButton);
 		backButton
-				.setToolTipText("<html><font size=\"4\">\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u043B\u043E\u0433 \u0440\u0430\u0431\u043E\u0442\u044B \u0432 \u0442\u0435\u043A\u0441\u0442\u043E\u0432\u044B\u0439 \u0444\u0430\u0439\u043B</font></html>");
+				.setToolTipText("<html><font size=\"4\">\u0412\u0435\u0440\u043D\u0443\u0442\u044C\u0441\u044F \u043A \u0432\u0432\u043E\u0434\u0443 \u0438\u0441\u0445\u043E\u0434\u043D\u044B\u0445 \u0434\u0430\u043D\u043D\u044B\u0445 \u0437\u0430\u0434\u0430\u0447\u0438</font></html>");
 		backButton.setForeground(new Color(250, 250, 210));
 		backButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
 		backButton.setBackground(new Color(102, 205, 170));

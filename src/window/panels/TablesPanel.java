@@ -235,8 +235,8 @@ public class TablesPanel extends JPanel {
 		Component horizontalGlue = Box.createHorizontalGlue();
 		panel.add(horizontalGlue);
 		
-		JButton backButton = new JButton("\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438");
-		backButton.setToolTipText("<html><font size=\"4\">\u041F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044C \u0432\u0432\u043E\u0434 \u0434\u0430\u043D\u043D\u044B\u0445 \u0438 \u0440\u0435\u0448\u0438\u0442\u044C \u0437\u0430\u0434\u0430\u0447\u0443</font></html>");
+		JButton backButton = new JButton("\u041D\u0430\u0437\u0430\u0434");
+		backButton.setToolTipText("<html><font size=\"4\">\u0412\u0435\u0440\u043D\u0443\u0442\u044C\u0441\u044F \u043A \u0432\u0432\u043E\u0434\u0443 \u043D\u0430\u0447\u0430\u043B\u044C\u043D\u044B\u0445 \u043D\u0430\u0441\u0442\u0440\u043E\u0435\u043A</font></html>");
 		backButton.setForeground(new Color(250, 250, 210));
 		backButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		backButton.setBackground(new Color(102, 205, 170));

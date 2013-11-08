@@ -280,8 +280,7 @@ public class MainFrame extends JFrame implements WindowListener {
 			for (int i = 0; i < data.length; ++i) {
 				curLine = new String("|");
 				for (int j = 0; j < data[i].length; ++j) {
-					curLine += fillString(" ", 10 - String.valueOf(data[i][j])
-							.length())
+					curLine += fillString(" ", 10 - String.valueOf(data[i][j]).length())
 							+ data[i][j] + "|";
 				}
 				this.log.add(fillString("-", curLine.length()) + "\n");

@@ -91,7 +91,7 @@ public class HelpPanel extends JPanel  {
 			rabbitButton.setOpaque(false);
 
 			add(okButton);
-			add(rabbitButton);
+//			add(rabbitButton);
 
 			this.setOpaque(false);
 		}

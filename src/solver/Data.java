@@ -11,7 +11,7 @@ package solver;
  * поставлять/получать товар и предоставляет методы для работы с этими данными.
  */
 
-public class Data {
+public class Data implements Cloneable {
 
 	private boolean[] correctMines;
 	private boolean[] correctFactories;
